@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace OnlinePrintingService.ViewModel
 {
     public class SignUpViewModel

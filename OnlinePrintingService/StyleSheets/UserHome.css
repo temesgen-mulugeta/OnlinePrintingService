@@ -1,0 +1,99 @@
+﻿body {
+    font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
+  
+}
+
+.first-container-left{
+
+}
+.first-container-right{
+    width:80%;
+}
+.headText{
+    font-size:5rem;
+    font-weight:bold;
+}
+
+.container {
+    
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:70%;
+   
+    
+}
+
+.services{
+    margin-top:100px;
+    text-align:center;
+}
+
+.button {
+    padding: .5rem 2.5rem;
+    font-size: .95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #febe19;
+    background-color: transparent;
+    border-radius: 25px;
+    border-color: #febe19;
+    margin-top: 2rem;
+}
+p{
+    
+    font-weight:normal;
+}
+.card {
+    margin-left: 1rem;
+}
+
+.card-title{
+    font-size:1.5rem;
+    font-weight:bold;
+}
+
+a{
+    color:black;
+    text-decoration:none;
+}
+
+
+.gifthumb {
+    position: relative;
+    margin-left: -10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 430px;
+    align-items: center;
+}
+
+.gifimage {
+    margin-left: -80px;
+}
+
+.graycontainer {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #e7e7e7;
+    margin-top: 20px;
+}
+
+.gifcontainer{
+    margin-top: -5px;
+}
+
+.qualityHead {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 40px;
+    
+    color: #4d4d4d;
+}

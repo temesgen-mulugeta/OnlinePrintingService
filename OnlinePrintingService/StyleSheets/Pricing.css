@@ -1,0 +1,48 @@
+﻿body {
+    font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
+}
+
+
+.headText {
+    font-size: 5rem;
+    font-weight: bold;
+    margin-left: 150px;
+    margin-top: 40px;
+    color: #febe19;
+}
+
+.headTextb {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align:center;
+    margin-top: 40px;
+
+  
+}
+
+.container {
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+}
+}
+
+.card {
+    margin-left: 3rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #febe19;
+}
+.card-text{
+    font-weight:normal;
+}
+

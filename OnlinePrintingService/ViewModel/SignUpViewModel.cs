@@ -9,7 +9,11 @@ namespace OnlinePrintingService.ViewModel
 {
     public class SignUpViewModel
     {
-      
+        [Required(ErrorMessage = "User Name can't be blank")]
+        public string UserName { get; set; }
+
+        
+
 
         [Required(ErrorMessage = "Email can't be blank")]
         [EmailAddress(ErrorMessage = "Invalid email")]

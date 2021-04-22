@@ -1,0 +1,59 @@
+﻿
+
+body {
+    font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
+  
+}
+
+.label {
+    font-size: .85rem;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-top: -5px;
+}
+
+.form-control {
+    background-color: transparent;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    margin-top: -5px;
+}
+
+.button {
+    padding: .5rem 2.5rem;
+    font-size: .95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+    border-radius: 25px;
+    margin-top: 2rem;
+}
+
+.card-body {
+    border-radius: 8px;
+}
+
+
+
+.signup-form {
+    margin-top: 3rem;
+    width: 320px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.signup__thumbnail {
+    position: relative;
+    margin-left: -10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 430px;
+    align-items: center;
+}
+
+.order__container {
+  
+}

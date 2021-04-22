@@ -16,7 +16,7 @@
 <body>
     <div class="signup__container">
         <div class="container__child signup__thumbnail">
-            <img ID="Image1" runat="server" src="~/Images/signup.jpg" />
+            <img ID="Image1" runat="server" src="../Images/signup.jpg" />
 
         </div>
 
@@ -39,7 +39,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 @Html.LabelFor(va => va.PhoneNumber, new { @class = "form-control" })
-                                @Html.TextBoxFor(va => va.PhoneNumber, new { placeholder = "Email", @class = "form-control" })
+                                @Html.TextBoxFor(va => va.PhoneNumber, new { placeholder = "Phone Number", @class = "form-control" })
                                 @Html.ValidationMessageFor(va => va.PhoneNumber)
 
                             </div>
@@ -48,7 +48,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 @Html.LabelFor(va => va.Password, new { @class = "form-control" })
-                                @Html.TextBoxFor(va => va.Password, new { placeholder = "Email", @class = "form-control" })
+                                @Html.TextBoxFor(va => va.Password, new { placeholder = "Password", @class = "form-control" })
                                 @Html.ValidationMessageFor(va => va.Password)
 
                             </div>
@@ -56,16 +56,20 @@
                         <div class="form-row">
                             <div class="form-group">
                                 @Html.LabelFor(va => va.ConfirmPassword, new { @class = "form-control" })
-                                @Html.TextBoxFor(va => va.ConfirmPassword, new { placeholder = "Email", @class = "form-control" })
+                                @Html.TextBoxFor(va => va.ConfirmPassword, new { placeholder = "Confirm Password", @class = "form-control" })
                                 @Html.ValidationMessageFor(va => va.ConfirmPassword)
 
                             </div>
                         </div>
                     }
-                    
-                    </div>
 
                 </div>
+
+                @Html.ValidationSummary()
+
+                <button type="submit" class="btn btn-success">Register</button>
+
+            </div>
         </div>
     </div>
 

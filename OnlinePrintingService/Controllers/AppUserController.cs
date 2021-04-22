@@ -66,6 +66,40 @@ namespace OnlinePrintingService.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Login(LoginViewModel loginViewModel)
+        {
+
+            using (var appDbContext = new AppDbContext())
+            using (var userStore = new AppUserStore(appDbContext))
+            using (var userManager = new AppUserManager(userStore))
+            {
+                var user = userManager.Find(loginViewModel.UserName, loginViewModel.Password);
+                if (user != null)
+                {
+                    var authenticationManager = HttpContext.GetOwinContext().Authentication;
+                    var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                    authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
+                    if (userManager.IsInRole(user.Id, "Admin"))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("Authentication Error", "Invalid username and/or password");
+                    return View();
+                }
+            }
+
+
+        }
+
         public ActionResult UserHome()
         {
             return View();

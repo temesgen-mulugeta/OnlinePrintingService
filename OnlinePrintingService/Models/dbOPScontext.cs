@@ -9,7 +9,7 @@ namespace OnlinePrintingService.Models
 {
     public class dbOPScontext:DbContext
     {
-        public dbOPScontext() : base("OnlinePrintingService") { }
+        public dbOPScontext() : base("DefualtConnection") { }
         public DbSet<Product> Product { get; set; }
         public DbSet<Order> Order { get; set; }
 

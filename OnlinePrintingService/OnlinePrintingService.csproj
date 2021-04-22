@@ -175,6 +175,11 @@
     <Compile Include="Identity\AppUser.cs" />
     <Compile Include="Identity\AppUserManager.cs" />
     <Compile Include="Identity\AppUserStore.cs" />
+    <Compile Include="Migrations\202104221955198_IntityMigration.cs" />
+    <Compile Include="Migrations\202104221955198_IntityMigration.Designer.cs">
+      <DependentUpon>202104221955198_IntityMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\dbOPScontext.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
@@ -191,6 +196,7 @@
     <Content Include="Views\AppUsers\Edit.cshtml" />
     <Content Include="Views\AppUsers\Index.cshtml" />
     <Content Include="Views\AppUser\SignUp.cshtml" />
+    <Content Include="Views\AppUser\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -201,6 +207,11 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\roslyn\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202104221955198_IntityMigration.resx">
+      <DependentUpon>202104221955198_IntityMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

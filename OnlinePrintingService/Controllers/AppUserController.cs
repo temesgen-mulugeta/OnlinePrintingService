@@ -47,6 +47,8 @@ namespace OnlinePrintingService.Controllers
                         var authenticationManager = HttpContext.GetOwinContext().Authentication;
                         var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                         authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
+                        Cookie.AddCookie(user.UserName, "Admin", HttpContext.ApplicationInstance.Response);
+
                     }
                     else
                     {

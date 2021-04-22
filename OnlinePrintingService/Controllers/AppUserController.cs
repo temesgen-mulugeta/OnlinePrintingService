@@ -100,6 +100,13 @@ namespace OnlinePrintingService.Controllers
 
         }
 
+        public ActionResult Logout()
+        {
+            var authenticationManager = HttpContext.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult UserHome()
         {
             return View();

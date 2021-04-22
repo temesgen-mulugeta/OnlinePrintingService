@@ -125,6 +125,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
+    <Content Include="bin\OnlinePrintingService.dll" />
+    <Content Include="bin\OnlinePrintingService.pdb" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>

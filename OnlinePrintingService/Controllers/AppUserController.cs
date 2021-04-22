@@ -64,5 +64,9 @@ namespace OnlinePrintingService.Controllers
         {
             return View();
         }
+        public ActionResult UserHome()
+        {
+            return View();
+        }
     }
 }

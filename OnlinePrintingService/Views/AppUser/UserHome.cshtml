@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "UserHome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="../StyleSheets/UserHome.css" type="text/css" />
+
+    <title>Adey Printing</title>
+
+</head>
+
+
+
+
+<body>
+
+
+    <div class="first-container">
+        <div class=" first-container-left">
+            <h1 class="headText">Print Your Ideas</h1>
+            <p>
+                Welcome to adey online printing service. <br /> High Quality Printing Service
+            </p>
+            <Button ID="orderNowB" class="button" Text="">Order Now</Button>
+        </div>
+        <div class="first-container-right">
+            <img ID="Image1" src="~/Images/Home.png" />
+        </div>
+    </div>
+
+    <!--services head -->
+    <div class="container services">
+        <h1 class="headText">Our Services</h1>
+    </div>
+    <p style="text-align:center;margin-top:-15px;">We provide high quality printing services for</p>
+
+    <!--services -->
+    <div class="first-container">
+        <!--business card -->
+        <a href="Pricing.aspx">
+
+            <div class="card ">
+                <img class="card-img-top" src="../Images/UserHome/businesscard.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Business Cards</h5>
+                    <p class="card-text"></p>
+
+                </div>
+            </div>
+        </a>
+
+
+        <!--post Card -->
+        <a href="Pricing.aspx">
+            <div class="card ">
+                <img class="card-img-top" src="../Images/UserHome/postcard.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Post Cards</h5>
+                    <p class="card-text"></p>
+
+                </div>
+            </div>
+
+        </a>
+
+        <!--Brochures -->
+        <a href="Pricing.aspx">
+            <div class="card ">
+                <img class="card-img-top" src="../Images/UserHome/brochure.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Brochures</h5>
+                    <p class="card-text"></p>
+
+                </div>
+            </div>
+
+        </a>
+
+        <!--Stickers -->
+        <a href="Pricing.aspx">
+            <div class="card ">
+                <img class="card-img-top" src="../Images/UserHome/sticker.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Stickers</h5>
+                    <p class="card-text"></p>
+
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- -->
+    <!--quality head -->
+    <!--Quality -->
+    <div>
+        <h1 class="headText services">We Believe in Quality</h1>
+        <p style="text-align:center;margin-bottom:30px;">
+            We don't compromise quality. We always deliver the
+            quality you desire!
+        </p>
+        <div class="first-container gifcontainer">
+            <div class="gifimage">
+                <img src="../Images/UserHome/gifImage.jpg" alt="Card image cap">
+            </div>
+            <div class="gifthumb">
+                <img src="../Images/UserHome/homegif.gif" alt="Card image cap">
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

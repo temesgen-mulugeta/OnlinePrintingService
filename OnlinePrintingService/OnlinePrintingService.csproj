@@ -197,6 +197,8 @@
     <Content Include="Views\AppUsers\Index.cshtml" />
     <Content Include="Views\AppUser\SignUp.cshtml" />
     <Content Include="Views\AppUser\Login.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\AppUser\UserHome.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

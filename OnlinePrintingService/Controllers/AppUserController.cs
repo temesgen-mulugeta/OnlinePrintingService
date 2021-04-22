@@ -31,6 +31,7 @@ namespace OnlinePrintingService.Controllers
                     var user = new AppUser()
 
                     {
+                    UserName = signUpViewModel.UserName,
                     Email = signUpViewModel.Email,
                     PasswordHash = passwordHash,
                     PhoneNumber = signUpViewModel.PhoneNumber
@@ -46,7 +47,7 @@ namespace OnlinePrintingService.Controllers
                     }
                     else
                     {
-                        Debug.Print(string.Join(",", result.Errors.ToArray()));
+                        Debug.Print(string.Join("\n", result.Errors.ToArray()));
                     }
 
                     return RedirectToAction("Index", "Home");

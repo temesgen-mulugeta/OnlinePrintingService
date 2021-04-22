@@ -7,6 +7,7 @@ using System.Web;
 using OnlinePrintingService.ViewModel;
 using System.Diagnostics;
 using System.Linq;
+using OnlinePrintingService.Helper;
 
 namespace OnlinePrintingService.Controllers
 {
@@ -83,10 +84,13 @@ namespace OnlinePrintingService.Controllers
                     authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
                     if (userManager.IsInRole(user.Id, "Admin"))
                     {
+                        Cookie.AddCookie(user.UserName, "Admin", HttpContext.ApplicationInstance.Response);
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
+
                     }
                     else
                     {
+                        Cookie.AddCookie(user.UserName, "User", HttpContext.ApplicationInstance.Response);
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -104,6 +108,7 @@ namespace OnlinePrintingService.Controllers
         {
             var authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();
+            Cookie.RemoveCookie(HttpContext.ApplicationInstance.Response);
             return RedirectToAction("Index", "Home");
         }
 

@@ -4,8 +4,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using System.Web;
-
-
+using OnlinePrintingService.ViewModel;
 
 namespace OnlinePrintingService.Controllers
 {
@@ -18,7 +17,7 @@ namespace OnlinePrintingService.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp(int x)
+        public ActionResult SignUp(SignUpViewModel signUpViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -26,13 +25,13 @@ namespace OnlinePrintingService.Controllers
                 using (var userStore = new AppUserStore(appDbContext))
                 using (var userManager = new AppUserManager(userStore))
                 {
-                   // var passwordHash = Crypto.HashPassword(rvm.Password);
+                    var passwordHash = Crypto.HashPassword(signUpViewModel.Password);
                     var user = new AppUser()
 
                     {
-                    //    Email = rvm.Email,
-                     //   PasswordHash = passwordHash,
-                     //   PhoneNumber = rvm.Mobile
+                    Email = signUpViewModel.Email,
+                    PasswordHash = passwordHash,
+                    PhoneNumber = signUpViewModel.PhoneNumber
                     };
                     IdentityResult result = userManager.Create(user);
 

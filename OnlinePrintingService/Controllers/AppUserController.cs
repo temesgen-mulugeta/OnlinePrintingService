@@ -39,7 +39,9 @@ namespace OnlinePrintingService.Controllers
                     IdentityResult result = userManager.Create(user);
                     if (result.Succeeded)
                     {
-                        userManager.AddToRole(user.Id, "user");
+
+
+                        userManager.AddToRole(user.Id, "User");
 
                         var authenticationManager = HttpContext.GetOwinContext().Authentication;
                         var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);

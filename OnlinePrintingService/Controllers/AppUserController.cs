@@ -113,9 +113,6 @@ namespace OnlinePrintingService.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult UserHome()
-        {
-            return View();
-        }
+     
     }
 }

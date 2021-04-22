@@ -1,43 +1,51 @@
 ﻿body {
     font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
-  
 }
 
-.first-container-left{
+p {
+    font-size: 1rem;
+}
 
+.first-container {
 }
-.first-container-right{
-    width:80%;
+
+.first-container {
+    right: 0;
+    left: 0;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
 }
-.headText{
-    font-size:5rem;
-    font-weight:bold;
+
+.headText {
+    font-size: 3rem;
+    font-weight: bold;
 }
 
 .container {
-    
     right: 0;
     left: 0;
     margin-right: auto;
     margin-left: auto;
     margin-top: 30px;
-    
-   
     align-items: center;
     justify-content: center;
-    width:70%;
-   
-    
+    width: 70%;
 }
 
-.services{
-    margin-top:100px;
-    text-align:center;
+
+.services {
+    margin-top: 100px;
+    text-align: center;
 }
 
 .button {
     padding: .5rem 2.5rem;
-    font-size: .95rem;
+    font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
     color: #febe19;
@@ -46,22 +54,23 @@
     border-color: #febe19;
     margin-top: 2rem;
 }
-p{
-    
-    font-weight:normal;
+
+p {
+    font-weight: normal;
 }
+
 .card {
     margin-left: 1rem;
 }
 
-.card-title{
-    font-size:1.5rem;
-    font-weight:bold;
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
-a{
-    color:black;
-    text-decoration:none;
+a {
+    color: black;
+    text-decoration: none;
 }
 
 
@@ -86,7 +95,7 @@ a{
     margin-top: 20px;
 }
 
-.gifcontainer{
+.gifcontainer {
     margin-top: -5px;
 }
 
@@ -94,6 +103,5 @@ a{
     text-align: center;
     font-weight: bold;
     margin-top: 40px;
-    
     color: #4d4d4d;
 }

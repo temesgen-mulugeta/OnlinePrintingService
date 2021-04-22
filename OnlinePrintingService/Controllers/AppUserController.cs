@@ -5,6 +5,8 @@ using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using System.Web;
 using OnlinePrintingService.ViewModel;
+using System.Diagnostics;
+using System.Linq;
 
 namespace OnlinePrintingService.Controllers
 {
@@ -34,7 +36,6 @@ namespace OnlinePrintingService.Controllers
                     PhoneNumber = signUpViewModel.PhoneNumber
                     };
                     IdentityResult result = userManager.Create(user);
-
                     if (result.Succeeded)
                     {
                         userManager.AddToRole(user.Id, "user");
@@ -42,6 +43,10 @@ namespace OnlinePrintingService.Controllers
                         var authenticationManager = HttpContext.GetOwinContext().Authentication;
                         var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                         authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
+                    }
+                    else
+                    {
+                        Debug.Print(string.Join(",", result.Errors.ToArray()));
                     }
 
                     return RedirectToAction("Index", "Home");

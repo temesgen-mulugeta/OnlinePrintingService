@@ -109,6 +109,7 @@ namespace OnlinePrintingService.Controllers
             var authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();
             Cookie.RemoveCookie(HttpContext.ApplicationInstance.Response);
+            Cookie.isUserLoggedIn(System.Web.HttpContext.Current.Request);
             return RedirectToAction("Index", "Home");
         }
 

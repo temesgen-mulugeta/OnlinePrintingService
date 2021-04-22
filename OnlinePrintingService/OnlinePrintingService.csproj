@@ -130,6 +130,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Identity\AppDbContext.cs" />
+    <Compile Include="Identity\AppUser.cs" />
+    <Compile Include="Identity\AppUserManager.cs" />
+    <Compile Include="Identity\AppUserStore.cs" />
     <Compile Include="Models\dbOPScontext.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />

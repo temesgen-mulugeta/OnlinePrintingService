@@ -9,5 +9,9 @@ namespace OnlinePrintingService.Controllers
         {
             return View();
         }
+        public ActionResult Pricing()
+        {
+            return View();
+        }
     }
 }

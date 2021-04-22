@@ -30,35 +30,42 @@
                         @Html.AntiForgeryToken()
                         <div class="form-row">
                             <div class="form-group">
-                              
+                                @Html.LabelFor(va => va.Email, new { @class = "form-control" })
+                                @Html.TextBoxFor(va => va.Email, new { placeholder = "Email", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.Email)
+
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                @Html.LabelFor(va => va.PhoneNumber, new { @class = "form-control" })
+                                @Html.TextBoxFor(va => va.PhoneNumber, new { placeholder = "Email", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.PhoneNumber)
+
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                @Html.LabelFor(va => va.Password, new { @class = "form-control" })
+                                @Html.TextBoxFor(va => va.Password, new { placeholder = "Email", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.Password)
+
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                @Html.LabelFor(va => va.ConfirmPassword, new { @class = "form-control" })
+                                @Html.TextBoxFor(va => va.ConfirmPassword, new { placeholder = "Email", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.ConfirmPassword)
+
                             </div>
                         </div>
                     }
-                    <div id="form1" runat="server">
-                        <p class="label" style=" margin-top: 10px;">NAME</p>
-                        <input ID="NameTB" class="form-control" type="text" placeholder="Full Name" />
-
-
-                        <p class="label" style=" margin-top: 10px;">PHONE NUMBER</p>
-                        <input ID="PhoneTB" class="form-control" type="text" placeholder="Phone Number" />
-
-
-
-                        <p class="label" style=" margin-top: 10px;">EMAIL</p>
-                        <input ID="EmailTB" class="form-control" type="text" placeholder="Email" />
-
-                        <p class="label" style=" margin-top: 10px;">
-                            PASSWORD
-                        </p>
-                        <input ID="PasswordTB" class="form-control" type="text" placeholder="Password" />
-
-                        <p>
-                            <Button ID="SignupB" class="button">Sign Up</Button>
-                        </p>
-                        <a href="Login.aspx" style="color:#febe19; margin-top:-30px;margin-left:10px;">I have an account</a>
+                    
                     </div>
-                   
-            </div>
+
+                </div>
         </div>
     </div>
 

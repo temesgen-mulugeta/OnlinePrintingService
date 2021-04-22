@@ -42,6 +42,7 @@
                         
                         <Button class="nav-link masterbutton" ID="LoginB">
                             @ViewBag.buttonText
+                            onclick="location.href='@{Html.Action(ViewBag.isLoggedin ? "Logout" : "Login", "OnlinePrintingService.Controllers.AppUserController", new { area = "" });}'
                         </Button>
                     </li>
                 </ul>

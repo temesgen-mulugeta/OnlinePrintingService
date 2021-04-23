@@ -29,7 +29,7 @@
 
                     <h1 style="margin-top:-30px; margin-bottom:30px; font-weight:bold">Sign In</h1>
                     <div>
-                        @using (Html.BeginForm("SignUp", "AppUser", FormMethod.Post))
+                        @using (Html.BeginForm("Login", "AppUser", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
                             <div class="form-row textInput">
@@ -54,8 +54,8 @@
 
                             @Html.ValidationSummary()
                             <div style="display:flex; ">
-                                <button type="submit" class="btn btn-success">Register</button>
-                                <a href="#" style="align-self:flex-end; margin-left:10px">Create an account</a>
+                                <button type="submit" class="btn btn-success" style="background-color: #febe19;color:black; font-weight:500;border:none">Login</button>
+                                <a href="../AppUser/SignUp" style="align-self:flex-end; margin-left:10px;text-decoration:none; color:darkgrey;">Create an account</a>
                             </div>
 
                         }

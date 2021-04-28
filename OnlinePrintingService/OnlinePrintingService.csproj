@@ -173,7 +173,6 @@
     <Compile Include="Controllers\Common\HomeController.cs" />
     <Compile Include="Controllers\Admin\AdminOrderController.cs" />
     <Compile Include="Controllers\Admin\ProductController.cs" />
-    <Compile Include="Controllers\User\PricingController.cs" />
     <Compile Include="Controllers\User\UserOrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -212,13 +211,13 @@
     <Content Include="Views\AppUser\Login.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\AppUser\UserHome.cshtml" />
-    <Content Include="Views\Order\Order.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Pricing.cshtml" />
     <Content Include="Views\UserOrder\createOrder.cshtml" />
     <Content Include="Views\Product\Products.cshtml" />
     <Content Include="Views\CreateProduct\CreateProduct.cshtml" />
     <Content Include="Views\AdminOrder\Order.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

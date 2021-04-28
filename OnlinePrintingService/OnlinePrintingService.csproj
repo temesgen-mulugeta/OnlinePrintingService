@@ -173,6 +173,7 @@
     <Compile Include="Controllers\Common\HomeController.cs" />
     <Compile Include="Controllers\Admin\AdminOrderController.cs" />
     <Compile Include="Controllers\Admin\ProductController.cs" />
+    <Compile Include="Controllers\User\PricingController.cs" />
     <Compile Include="Controllers\User\UserOrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -228,6 +229,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\roslyn\" />
+    <Folder Include="Views\Pricing\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202104221955198_IntityMigration.resx">

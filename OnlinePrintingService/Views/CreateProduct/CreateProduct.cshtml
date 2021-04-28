@@ -1,4 +1,4 @@
-﻿
+﻿@model OnlinePrintingService.ViewModel.SignUpViewModel
 @{
     Layout = null;
 }
@@ -10,8 +10,77 @@
     <meta name="viewport" content="width=device-width" />
     <title>CreateProduct</title>
 </head>
+
 <body>
-    <div> 
+    <div class="signup__container">
+
+
+        <div class="signup-form container__child" style=" width: 18rem;">
+            <div class="card-body">
+
+                <div>
+                    <h1 style="margin-top:-30px; margin-bottom:30px; font-weight:bold">Sign Up</h1>
+                    @using (Html.BeginForm("CreateProduct", "CreateProduct", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-row textInput">
+                            <div class="form-group">
+
+                                @Html.TextBoxFor(va => va.UserName, new { placeholder = "First Name", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.UserName)
+
+                            </div>
+                        </div>
+
+                        <div class="form-row textInput">
+                            <div class="form-group">
+
+                                @Html.TextBoxFor(va => va.Email, new { placeholder = "Email", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.Email)
+
+                            </div>
+                        </div>
+                        <div class="form-row textInput">
+                            <div class="form-group">
+
+                                @Html.TextBoxFor(va => va.PhoneNumber, new { placeholder = "Phone Number", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.PhoneNumber)
+
+                            </div>
+                        </div>
+
+                        <div class="form-row textInput">
+                            <div class="form-group">
+
+                                @Html.TextBoxFor(va => va.Password, new { placeholder = "Password", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.Password)
+
+                            </div>
+                        </div>
+                        <div class="form-row textInput">
+                            <div class="form-group">
+
+                                @Html.TextBoxFor(va => va.ConfirmPassword, new { placeholder = "Confirm Password", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.ConfirmPassword)
+
+                            </div>
+                        </div>
+                        @Html.ValidationSummary()
+                        <div style="display:flex; ">
+                            <button type="submit" class="btn btn-success" style="background-color: #212025;color:white; font-weight:500;border:none">Register</button>
+                            <a href="../AppUser/Login" style="align-self:flex-end; margin-left:10px;text-decoration:none; color:darkgrey;">I have an account</a>
+                        </div>
+
+                    }
+
+                </div>
+
+
+
+            </div>
+        </div>
     </div>
+
+
 </body>
 </html>

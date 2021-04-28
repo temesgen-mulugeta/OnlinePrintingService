@@ -46,7 +46,7 @@
                         <div class="form-row textInput">
                             <div class="form-group">
 
-                                @Html.DropDownList("ProductName",ViewBag.ProductName as List<SelectListItem>,"Select Departement")
+                                @Html.DropDownList("ProductName",ViewBag.ProductName as List<SelectListItem>,"Select Product Name")
                                 @Html.ValidationMessageFor(va => va.ProductName)
 
                             </div>
@@ -70,48 +70,6 @@
 
 
 
-
-                    <p class="label">
-                        ORDER TYPE
-                    </p>
-                    <asp:DropDownList ID="orderTypeList" AutoPostBack="true"
-                                      OnSelectedIndexChanged="orderTypeList_TextChanged" AppendDataBoundItems="true"
-                                      CausesValidation="true" class="form-control" runat="server" placeholder="Order Type">
-                        <asp:ListItem Text="--Select One--" Value="" />
-
-                    </asp:DropDownList>
-
-                    <br />
-                    <p class="label">
-                        ORDER SIZE
-                    </p>
-                    <asp:DropDownList ID="orderDimensionsList" AutoPostBack="true"
-                                      OnSelectedIndexChanged="orderDimensionsList_TextChanged" class="form-control" runat="server"
-                                      placeholder="Order Type">
-                    </asp:DropDownList>
-
-
-                    <p class="label" style="margin-top:15px;">
-                        Quantity
-                    </p>
-                    <asp:TextBox ID="QuantityTB" class="form-control" runat="server" placeholder="Quantity">
-                    </asp:TextBox>
-
-                    <asp:Panel ID="UploadPanel" EnableViewState="false" runat="server">
-                        <p class="label" style="margin-top:15px;">
-                            Upload Design
-                        </p>
-                        <asp:FileUpload ID="FileUpload" class="form-control" runat="server"
-                                        placeholder="Upload FIle" />
-                        <br />
-                    </asp:Panel>
-
-                    <p>
-                        <asp:Button ID="OrderB" class="button" runat="server" Text="Calculate Price"
-                                    OnClick="OrderB_Click" />
-                        <br>
-                        <asp:Label ID="TotalAmountLabel" runat="server" />
-                    </p>
 
                 </div>
             </div>

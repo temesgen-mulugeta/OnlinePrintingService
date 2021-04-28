@@ -1,4 +1,4 @@
-﻿
+﻿@model OnlinePrintingService.ViewModel.OrdersViewModel
 @{
     ViewBag.Title = "Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +7,7 @@
     <link href="../StyleSheets/Orders.css" rel="stylesheet" type="text/css" />
     <title>Make Orders</title>
 </head>
-   
+
 <body>
 
 
@@ -33,11 +33,43 @@
 
         </div>
 
-        <div class="signup-form container__child"  style=" width: 18rem;">
+        <div class="signup-form container__child" style=" width: 18rem;">
             <div class="card-body">
 
                 <div>
                     <h1 style="margin-bottom:20px; margin-top:-50px; font-weight:bolder">Order Now</h1>
+
+
+                    @using (Html.BeginForm("Login", "AppUser", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-row textInput">
+                            <div class="form-group">
+
+                                @Html.DropDownList("ProductName",ViewBag.ProductName as List<SelectListItem>,"Select Departement")
+                                @Html.ValidationMessageFor(va => va.ProductName)
+
+                            </div>
+                        </div>
+
+
+
+                       
+
+                        @Html.ValidationSummary()
+                        <div style="display:flex; ">
+                            <button type="submit" class="btn btn-success" style="background-color: #febe19;color:black; font-weight:500;border:none">Login</button>
+                            <a href="../AppUser/SignUp" style="align-self:flex-end; margin-left:10px;text-decoration:none; color:darkgrey;">Create an account</a>
+                        </div>
+
+                    }
+
+
+
+
+
+
+
 
                     <p class="label">
                         ORDER TYPE

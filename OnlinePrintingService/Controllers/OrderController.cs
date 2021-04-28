@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlinePrintingService.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,11 @@ namespace OnlinePrintingService.Controllers
         // GET: Order
         public ActionResult Order()
         {
-            return View();
+            using (var context = new dbOPScontext())
+            {
+                List<Order> orders = context.Order.ToList();
+                return View(orders);
+            }
         }
     }
 }

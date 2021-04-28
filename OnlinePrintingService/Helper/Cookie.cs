@@ -22,7 +22,7 @@ namespace OnlinePrintingService.Helper
         public static CookieData GetCookieData(HttpRequest request)
         {
             var userName = request.Cookies["userData"].Value.Substring(request.Cookies["userData"].Value.IndexOf('=') + 1, request.Cookies["userData"].Value.IndexOf('&') - 1);
-            var role = request.Cookies["userData"].Value.Substring(request.Cookies["userData"].Value.IndexOf("e=") + 2);
+            var role = request.Cookies["userData"].Value.Substring(request.Cookies["userData"].Value.IndexOf("role=") + 5);
 
             return new CookieData(userName, role);
 

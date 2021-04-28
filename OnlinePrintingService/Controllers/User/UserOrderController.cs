@@ -23,7 +23,7 @@ namespace OnlinePrintingService.Controllers.User
                 model.ProductName = GetSelectListItems(productNames);
                
             }
-            return View();
+            return View(model);
            
         }
 

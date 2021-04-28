@@ -7,10 +7,10 @@ namespace OnlinePrintingService.Helper
     {
       
 
-        public static void AddCookie(String userName, String role, HttpResponse response) {
+        public static void AddCookie(String userId, String role, HttpResponseBase response) {
             HttpCookie userData;
             userData = new HttpCookie("userData");
-            userData["userName"] = $"{userName}";
+            userData["userId"] = $"{userId}";
             userData["role"] = $"{role}";
             userData.Expires = DateTime.Now.AddDays(30);
             response.Cookies.Add(userData);
@@ -19,16 +19,16 @@ namespace OnlinePrintingService.Helper
 
 
 
-        public static CookieData GetCookieData(HttpRequest request)
+        public static CookieData GetCookieData(HttpRequestBase request)
         {
-            var userName = request.Cookies["userData"].Value.Substring(request.Cookies["userData"].Value.IndexOf('=') + 1, request.Cookies["userData"].Value.IndexOf('&') - 1);
+            var userId = request.Cookies["userData"].Value.Substring(request.Cookies["userData"].Value.IndexOf('=') + 1, request.Cookies["userData"].Value.IndexOf('&') - 1);
             var role = request.Cookies["userData"].Value.Substring(request.Cookies["userData"].Value.IndexOf("role=") + 5);
 
-            return new CookieData(userName, role);
+            return new CookieData(userId, role);
 
         }
 
-        public static bool isUserLoggedIn(HttpRequest request) =>
+        public static bool isUserLoggedIn(HttpRequestBase request) =>
             request.Cookies["userData"] != null &&
             request.Cookies["userData"].Value != String.Empty;
 

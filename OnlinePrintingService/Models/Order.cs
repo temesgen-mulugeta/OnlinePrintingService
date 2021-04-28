@@ -13,5 +13,7 @@ namespace OnlinePrintingService.Models
         public long ProductID { get; set; }
         public long OrderQuantity { get; set; }
         public byte[] OrderImage { get; set; }
+        public string UserID { get; set; }
+
     }
 }

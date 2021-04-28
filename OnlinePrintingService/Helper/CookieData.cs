@@ -7,12 +7,12 @@ namespace OnlinePrintingService.Helper
 {
     public class CookieData
     {
-        public string userName;
+        public string userId;
         public string role;
 
         public CookieData(string userName, string role)
         {
-            this.userName = userName;
+            this.userId = userName;
             this.role = role;
         }
     }

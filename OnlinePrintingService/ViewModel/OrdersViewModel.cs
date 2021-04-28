@@ -16,8 +16,7 @@ namespace OnlinePrintingService.ViewModel
         [Required(ErrorMessage = "Product Name can't be blank")]
         public IEnumerable<SelectListItem> ProductName {get; set;}
 
-        [Required(ErrorMessage = "Product Size can't be blank")]
-        public IEnumerable<SelectListItem> ProductSize { get; set; }
+      
 
         [Required(ErrorMessage = "Product Price can't be blank")]
         public int Quantity { get; set; }

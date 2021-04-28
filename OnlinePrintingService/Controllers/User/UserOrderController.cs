@@ -42,7 +42,7 @@ namespace OnlinePrintingService.Controllers.User
         }
 
         [HttpPost]
-        public ActionResult getProductSizes(string productName)
+        public ActionResult getProductSizes(string ProductName)
         {
             var model = new OrdersViewModel();
             using (var context = new dbOPScontext())

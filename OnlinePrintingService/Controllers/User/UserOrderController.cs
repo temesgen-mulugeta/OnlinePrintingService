@@ -27,11 +27,11 @@ namespace OnlinePrintingService.Controllers.User
            
         }
 
-        public ActionResult getProductSizes(string productName)
+        public ActionResult getProductSizes(string ProductName)
         {
             using (var context = new dbOPScontext())
             {
-                List<string> productSizes = context.Product.Where(p => p.ProductName.Equals(productName)).ToList().ConvertAll(p => p.ProductSize);
+                List<string> productSizes = context.Product.Where(p => p.ProductName.Equals(ProductName)).ToList().ConvertAll(p => p.ProductSize);
                 return View("createOrder", productSizes);
             }
         }

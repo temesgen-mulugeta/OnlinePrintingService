@@ -47,6 +47,7 @@
                             <div class="form-group">
 
                                 @Html.DropDownList("ProductName",ViewBag.ProductName as List<SelectListItem>,"Select Product Name")
+
                                 @Html.ValidationMessageFor(va => va.ProductName)
 
                             </div>

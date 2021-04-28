@@ -73,7 +73,7 @@ namespace OnlinePrintingService.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
-
+            
             using (var appDbContext = new AppDbContext())
             using (var userStore = new AppUserStore(appDbContext))
             using (var userManager = new AppUserManager(userStore))
@@ -86,13 +86,13 @@ namespace OnlinePrintingService.Controllers
                     authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
                     if (userManager.IsInRole(user.Id, "Admin"))
                     {
-                        Cookie.AddCookie(user.UserName, "Admin", HttpContext.ApplicationInstance.Response);
+                        Cookie.AddCookie(user.Id, "Admin", Response);
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
 
                     }
                     else
                     {
-                        Cookie.AddCookie(user.UserName, "User", HttpContext.ApplicationInstance.Response);
+                        Cookie.AddCookie(user.Id, "User", Response);
                         return RedirectToAction("Index", "Home");
                     }
                 }

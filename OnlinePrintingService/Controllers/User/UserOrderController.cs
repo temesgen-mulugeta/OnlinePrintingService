@@ -1,4 +1,6 @@
-﻿using OnlinePrintingService.Models;
+﻿using OnlinePrintingService.Helper;
+using OnlinePrintingService.Identity;
+using OnlinePrintingService.Models;
 using OnlinePrintingService.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,18 +35,21 @@ namespace OnlinePrintingService.Controllers.User
         [HttpPost]
         public ActionResult createOrder(OrdersViewModel orderViewModel)
         {
-            using (var context = new dbOPScontext())
-
+            using (var dbContext = new dbOPScontext())
+            using (var appDbContext = new AppDbContext())
+            using (var userStore = new AppUserStore(appDbContext))
+            using (var userManager = new AppUserManager(userStore))
             {
                 var order = new Order
                 {
-                    ProductID = context.Product.Where(p => p.ProductName.Equals(orderViewModel.ProductName) && p.ProductSize.Equals(orderViewModel.ProductSize)).ToList().First().ProductID,
+                    ProductID = dbContext.Product.Where(p => p.ProductName.Equals(orderViewModel.ProductName) && p.ProductSize.Equals(orderViewModel.ProductSize)).ToList().First().ProductID,
                     OrderQuantity = orderViewModel.Quantity,
                     OrderImage = orderViewModel.OrderImage,
+                    UserID = userStore.FindByIdAsync(Cookie.GetCookieData(Request).userId).Result.Id
                 };
 
-                context.Order.Add(order);
-                context.SaveChanges();
+                dbContext.Order.Add(order);
+                dbContext.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
         }

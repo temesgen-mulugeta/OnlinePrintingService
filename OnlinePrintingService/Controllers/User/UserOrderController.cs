@@ -25,7 +25,24 @@ namespace OnlinePrintingService.Controllers.User
             prdtSize.Add(new SelectListItem { Text = "FF", Value = "3" });
             ViewBag.ProductSize = prdtSize;
             return View();
+            using (var context = new dbOPScontext())
+            {
+                List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);
+                return View(productNames);
+            }
         }
+
+        public ActionResult getProductSizes(string productName)
+        {
+
+            using (var context = new dbOPScontext())
+            {
+                List<string> productSizes = (List<string>)context.Product.Where(p => p.ProductName.Equals(productName)).ToList().ConvertAll(p => p.ProductSize);
+                return View(productSizes);
+            }
+        }
+
+
 
         [HttpPost]
         public ActionResult createOrder(OrdersViewModel orderViewModel)

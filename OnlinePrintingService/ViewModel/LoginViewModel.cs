@@ -10,7 +10,7 @@ namespace OnlinePrintingService.ViewModel
     {
         [Required(ErrorMessage = "Username can't be blank")]
         public string UserName { get; set; }
-go
+
         [Required(ErrorMessage = "Password can't be blank")]
         public string Password { get; set; }
     }

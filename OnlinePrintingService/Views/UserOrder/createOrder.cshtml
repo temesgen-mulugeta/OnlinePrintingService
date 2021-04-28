@@ -52,13 +52,13 @@
                                "Select Product Name",
                                 new
                                 {
-                                    onchange = "SelectionChanged()"
+                                    onchange = "SelectionChanged(Model.ProductName)"
                                 }) %>
 
                                 <script>
                                      function SelectionChanged()
                                      {
-                                      var url = '@Html.Raw(Url.Action("getProductSizes", "UserOrder", new { ProductName = Model.ProductName }))';
+                                      var url = '@Html.Raw(Url.Action("getProductSizes", "UserOrder", new { ProductName =  }))';
                                       window.location = url;
                                      }
                                 </script>
@@ -70,8 +70,7 @@
                         <div class="form-row textInput">
                             <div class="form-group">
 
-                                @Html.DropDownList("ProductSize", Model.ProductName as List<SelectListItem>, "Select Product Size", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(va => va.ProductName)
+                                @Html.DropDownList("ProductSize", (IEnumerable<SelectListItem>)ViewBag.sizes, "Select Product Size", new { @class = "form-control" })
 
                             </div>
                         </div>

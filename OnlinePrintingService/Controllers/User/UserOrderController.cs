@@ -11,6 +11,8 @@ namespace OnlinePrintingService.Controllers.User
     public class UserOrderController : Controller
     {
 
+        static List<string> sizes = new List<string>();
+
         public ActionResult createOrder()
 
 
@@ -19,9 +21,21 @@ namespace OnlinePrintingService.Controllers.User
             using (var context = new dbOPScontext())
             {
                 List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);
-              
                 model.ProductName = GetSelectListItems(productNames);
-               
+
+
+                List<SelectListItem> sizeList = new List<SelectListItem>();
+                foreach (var s in sizes) {
+                    sizeList.Add(new SelectListItem { Text = s });
+                }
+                
+                
+
+
+
+                ViewBag.sizes = sizeList;
+
+
             }
             return View(model);
            
@@ -32,7 +46,8 @@ namespace OnlinePrintingService.Controllers.User
             using (var context = new dbOPScontext())
             {
                 List<string> productSizes = context.Product.Where(p => p.ProductName.Equals(ProductName)).ToList().ConvertAll(p => p.ProductSize);
-                return View("createOrder", productSizes);
+                sizes = productSizes;
+                return Redirect(Request.UrlReferrer.ToString());
             }
         }
 

@@ -7,14 +7,14 @@ namespace OnlinePrintingService.Controllers.Admin
     public class CreateProductController : Controller
     {
         // GET: CreateProduct
-        public ActionResult Index()
+        public ActionResult CreateProduct()
         {
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult createProduct(ProductViewModel productViewModel)
+        public ActionResult CreateProduct(ProductViewModel productViewModel)
         {
             using (var context = new dbOPScontext())
             {

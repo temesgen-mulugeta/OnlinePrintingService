@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AppUserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,6 +192,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\OrdersViewModel.cs" />
+    <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="ViewModel\SignUpViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +220,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\roslyn\" />
+    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202104221955198_IntityMigration.resx">

@@ -25,6 +25,22 @@ namespace OnlinePrintingService.Controllers
                 };
 
                 context.Product.Add(product);
+                context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public ActionResult removeProduct(long ProductID)
+        {
+            using (var context = new dbOPScontext())
+            {
+                var product = new Product
+                {
+                    ProductID = ProductID,    
+                };
+
+                context.Product.Remove(product);
+                context.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
         }

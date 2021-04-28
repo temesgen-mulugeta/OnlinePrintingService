@@ -1,18 +1,24 @@
 ﻿
 using OnlinePrintingService.Models;
 using OnlinePrintingService.ViewModel;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace OnlinePrintingService.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: Product
         public ActionResult Index()
         {
-            return View();
+            using (var context = new dbOPScontext())
+            {
+                List<Product> products = context.Product.ToList();
+                return View(products);
+            }
         }
 
+        [HttpPost]
         public ActionResult createProduct(ProductViewModel productViewModel)
         {
             using (var context = new dbOPScontext())
@@ -30,6 +36,7 @@ namespace OnlinePrintingService.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult removeProduct(long ProductID)
         {
             using (var context = new dbOPScontext())

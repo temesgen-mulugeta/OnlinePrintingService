@@ -21,6 +21,9 @@ namespace OnlinePrintingService.ViewModel
         [Required(ErrorMessage = "Product Price can't be blank")]
         public int Quantity { get; set; }
 
+        [Required(ErrorMessage = "Please add an image")]
+        public byte[] OrderImage { get; set; }
+
 
 
 

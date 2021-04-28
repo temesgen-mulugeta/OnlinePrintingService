@@ -1,5 +1,6 @@
 ﻿using OnlinePrintingService.Models;
 using OnlinePrintingService.ViewModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -7,9 +8,22 @@ namespace OnlinePrintingService.Controllers.User
 {
     public class UserOrderController : Controller
     {
-        public ActionResult Index()
+        public ActionResult createOrder()
         {
+            //generate product name
+            List<SelectListItem> prdtName = new List<SelectListItem>();
+            prdtName.Add(new SelectListItem { Text = "BC", Value = "1" });
+            prdtName.Add(new SelectListItem { Text = "CC", Value = "2" });
+            prdtName.Add(new SelectListItem { Text = "DC", Value = "3" });
+            ViewBag.ProductName = prdtName;
 
+
+            //generate product size
+            List<SelectListItem> prdtSize = new List<SelectListItem>();
+            prdtSize.Add(new SelectListItem { Text = "DD", Value = "1" });
+            prdtSize.Add(new SelectListItem { Text = "EE", Value = "2" });
+            prdtSize.Add(new SelectListItem { Text = "FF", Value = "3" });
+            ViewBag.ProductSize = prdtSize;
             return View();
         }
 

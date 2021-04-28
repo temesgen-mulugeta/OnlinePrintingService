@@ -217,6 +217,7 @@
     <Content Include="Views\UserOrder\createOrder.cshtml" />
     <Content Include="Views\Product\Products.cshtml" />
     <Content Include="Views\CreateProduct\CreateProduct.cshtml" />
+    <Content Include="Views\AdminOrder\Order.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

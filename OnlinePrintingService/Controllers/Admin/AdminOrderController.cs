@@ -27,8 +27,9 @@ namespace OnlinePrintingService.Controllers
                                   ProductSize = product.ProductSize,
                                   Image = order.OrderImage,
                               });
+                ViewBag.orders = orders;
 
-                return View(orders);
+                return View();
             }
         }
 

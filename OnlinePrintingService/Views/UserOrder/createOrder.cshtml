@@ -47,34 +47,15 @@
                         <div class="form-row textInput">
                             <div class="form-group">
 
-                                @Html.DropDownList(
-                               "ProductName", Model.ProductName as List<SelectListItem>,
-                               "Select Product Name",
-                                new
-                                {
-                                    onchange = "SelectionChanged(Model.ProductName)"
-                                }) %>
-
-                                <script>
-                                     function SelectionChanged()
-                                     {
-                                      var url = '@Html.Raw(Url.Action("getProductSizes", "UserOrder", new { ProductName =  }))';
-                                      window.location = url;
-                                     }
-                                </script>
+                                @Html.DropDownList("ProductName", Model.ProductName as List<SelectListItem>, "Select Product Name", new { @class = "form-control" }),
                                 @Html.ValidationMessageFor(va => va.ProductName)
 
-                            </div>
-                        </div>
-
-
-                        <div class="form-row textInput">
-                            <div class="form-group">
-
-                                @Html.DropDownList("ProductSize", (IEnumerable<SelectListItem>)ViewBag.sizes, "Select Product Size", new { @class = "form-control" })
 
                             </div>
                         </div>
+
+
+                      
 
                         <div class="form-row textInput">
                             <div class="form-group" style="margin-top:20px">

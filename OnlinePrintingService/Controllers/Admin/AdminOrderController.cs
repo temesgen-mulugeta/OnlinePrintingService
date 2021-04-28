@@ -24,7 +24,7 @@ namespace OnlinePrintingService.Controllers
                 {
                     OrderID = OrderID,
                 };
-
+                context.Order.Attach(order);
                 context.Order.Remove(order);
                 context.SaveChanges();
                 return RedirectToAction("Index", "Home");

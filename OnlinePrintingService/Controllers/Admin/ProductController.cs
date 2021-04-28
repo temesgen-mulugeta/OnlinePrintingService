@@ -19,7 +19,7 @@ namespace OnlinePrintingService.Controllers
         }
 
 
-        [HttpPost]
+       // [HttpPost]
         public ActionResult removeProduct(long ProductID)
         {
             using (var context = new dbOPScontext())
@@ -29,6 +29,7 @@ namespace OnlinePrintingService.Controllers
                     ProductID = ProductID,    
                 };
 
+                context.Product.Attach(product);
                 context.Product.Remove(product);
                 context.SaveChanges();
                 return RedirectToAction("Index", "Home");

@@ -10,7 +10,7 @@ namespace OnlinePrintingService.Controllers.User
 {
     public class UserOrderController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Order()
         {
             using (var context = new dbOPScontext())
             {

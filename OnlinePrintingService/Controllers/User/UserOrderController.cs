@@ -12,25 +12,21 @@ namespace OnlinePrintingService.Controllers.User
     {
         public ActionResult Index()
         {
-
             using (var context = new dbOPScontext())
             {
-                List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);
+                List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);         
                 return View(productNames);
             }
         }
 
         public ActionResult getProductSizes(string productName)
         {
-
             using (var context = new dbOPScontext())
             {
-                List<string> productSizes = (List<string>)context.Product.Where(p => p.ProductName.Equals(productName)).ToList().ConvertAll(p => p.ProductSize);
-                return View(productSizes);
+                List<string> productSizes = context.Product.Where(p => p.ProductName.Equals(productName)).ToList().ConvertAll(p => p.ProductSize);
+                return View("createOrder", productSizes);
             }
         }
-
-
 
         [HttpPost]
         public ActionResult createOrder(OrdersViewModel orderViewModel)
@@ -38,7 +34,6 @@ namespace OnlinePrintingService.Controllers.User
             using (var dbContext = new dbOPScontext())
             using (var appDbContext = new AppDbContext())
             using (var userStore = new AppUserStore(appDbContext))
-            using (var userManager = new AppUserManager(userStore))
             {
                 var order = new Order
                 {

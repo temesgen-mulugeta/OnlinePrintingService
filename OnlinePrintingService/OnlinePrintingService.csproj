@@ -167,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Admin\CreateProductController.cs" />
     <Compile Include="Controllers\Common\AppUserController.cs" />
     <Compile Include="Controllers\Common\HomeController.cs" />
     <Compile Include="Controllers\Admin\AdminOrderController.cs" />
@@ -222,6 +223,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\roslyn\" />
+    <Folder Include="Views\CreateProduct\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>

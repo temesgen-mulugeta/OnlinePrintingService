@@ -21,19 +21,7 @@ namespace OnlinePrintingService.Controllers.User
             using (var context = new dbOPScontext())
             {
                 List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);
-                model.ProductName = GetSelectListItems(productNames);
-
-
-                List<SelectListItem> sizeList = new List<SelectListItem>();
-                foreach (var s in sizes) {
-                    sizeList.Add(new SelectListItem { Text = s });
-                }
-                
-                
-
-
-
-                ViewBag.sizes = sizeList;
+                model.ProductName = GetSelectListItems(productNames);            
 
 
             }
@@ -47,7 +35,7 @@ namespace OnlinePrintingService.Controllers.User
             var model = new OrdersViewModel();
             using (var context = new dbOPScontext())
             {
-                List<string> productSizes = context.Product.Where(p => p.ProductName.Equals(ProductName)).ToList().ConvertAll(p => p.ProductSize);
+                List<string> productSizes = context.Product.Where(p => p.ProductName.Equals(productName)).ToList().ConvertAll(p => p.ProductSize);
                 sizes = productSizes;
                 return Redirect(Request.UrlReferrer.ToString());
             }

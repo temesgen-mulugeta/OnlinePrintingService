@@ -13,7 +13,7 @@
 </head>
 <body>
     @{ 
-        ViewBag.isLoggedin = OnlinePrintingService.Helper.Cookie.isUserLoggedIn(System.Web.HttpContext.Current.Request);
+        ViewBag.isLoggedin = OnlinePrintingService.Helper.Cookie.isUserLoggedIn(Request);
         
         ViewBag.buttonText = ViewBag.isLoggedin ? "Logout" : "Login";
 

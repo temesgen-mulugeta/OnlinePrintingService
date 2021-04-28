@@ -213,11 +213,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Pricing.cshtml" />
     <Content Include="Views\UserOrder\createOrder.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Product\Index.cshtml" />
-=======
-    <Content Include="Views\Product\Products.cshtml" />
->>>>>>> 7cf33633f9be460f135efc81fc0e4f05be8f558c
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -228,14 +223,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\roslyn\" />
-<<<<<<< HEAD
-=======
-    <Folder Include="Views\CreateProduct\" />
-<<<<<<< HEAD
+   
     <Folder Include="Views\Product\" />
->>>>>>> 5ed2f7e8909bd43e6cc692e1733162ee16fcc005
-=======
->>>>>>> 7cf33633f9be460f135efc81fc0e4f05be8f558c
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202104221955198_IntityMigration.resx">

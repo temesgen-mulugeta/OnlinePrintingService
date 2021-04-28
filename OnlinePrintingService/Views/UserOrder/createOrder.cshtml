@@ -46,7 +46,7 @@
                         <div class="form-row textInput">
                             <div class="form-group">
 
-                                @Html.DropDownList("ProductName", ViewBag.ProductName as List<SelectListItem>, "Select Product Name", new { @class = "form-control" })
+                                @Html.DropDownList("FromModel", Model.ProductName as List<SelectListItem>, "Select Product Name", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(va => va.ProductName)
 
                             </div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
+using System.Web.Mvc;
 
 namespace OnlinePrintingService.ViewModel
 {
@@ -13,10 +14,10 @@ namespace OnlinePrintingService.ViewModel
     public class OrdersViewModel
     {
         [Required(ErrorMessage = "Product Name can't be blank")]
-        public string ProductName { get; set; }
+        public IEnumerable<SelectListItem> ProductName {get; set;}
 
         [Required(ErrorMessage = "Product Size can't be blank")]
-        public string ProductSize { get; set; }
+        public IEnumerable<SelectListItem> ProductSize { get; set; }
 
         [Required(ErrorMessage = "Product Price can't be blank")]
         public int Quantity { get; set; }

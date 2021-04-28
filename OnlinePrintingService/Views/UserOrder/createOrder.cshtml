@@ -47,19 +47,12 @@
                         <div class="form-row textInput">
                             <div class="form-group">
 
-                                @Html.DropDownList("FromModel", Model.ProductName as List<SelectListItem>, "Select Product Name", new { @class = "form-control" })
+                                @Html.DropDownList("ProductName", Model.ProductName as List<SelectListItem>, "Select Product Name", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(va => va.ProductName)
 
                             </div>
                         </div>
-                        <div class="form-row textInput">
-                            <div class="form-group" style="margin-top:20px">
-
-                                @Html.DropDownList("ProductSize", ViewBag.ProductSize as List<SelectListItem>, "Select Product Size", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(va => va.ProductSize)
-
-                            </div>
-                        </div>
+                       
                         <div class="form-row textInput">
                             <div class="form-group" style="margin-top:20px">
 

@@ -27,15 +27,24 @@ namespace OnlinePrintingService.Controllers.User
            
         }
 
+<<<<<<< HEAD
         [HttpPost]
         public ActionResult getProductSizes(string productName)
+=======
+        public ActionResult getProductSizes(string ProductName)
+>>>>>>> 28a0cb6722e0ee2e1d33075656aef92b7b907285
         {
             var model = new OrdersViewModel();
             using (var context = new dbOPScontext())
             {
+<<<<<<< HEAD
                 List<string> productSizes = context.Product.Where(p => p.ProductName.Equals(productName)).ToList().ConvertAll(p => p.ProductSize);
                 model.ProductSize = GetSelectListItems(productSizes);
                 return Json(productSizes, JsonRequestBehavior.AllowGet);
+=======
+                List<string> productSizes = context.Product.Where(p => p.ProductName.Equals(ProductName)).ToList().ConvertAll(p => p.ProductSize);
+                return View("createOrder", productSizes);
+>>>>>>> 28a0cb6722e0ee2e1d33075656aef92b7b907285
             }
         }
 

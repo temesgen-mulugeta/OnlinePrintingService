@@ -9,7 +9,7 @@ namespace OnlinePrintingService.Controllers
 {
     public class ProductController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Products()
         {
             using (var context = new dbOPScontext())
             {

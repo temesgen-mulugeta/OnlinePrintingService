@@ -6,6 +6,7 @@
 <head>
     <link href="../StyleSheets/Orders.css" rel="stylesheet" type="text/css" />
     <title>Make Orders</title>
+    
 </head>
 
 <body>
@@ -40,13 +41,13 @@
                     <h1 style="margin-bottom:20px; margin-top:-50px; font-weight:bolder">Order Now</h1>
 
 
-                    @using (Html.BeginForm("Login", "AppUser", FormMethod.Post))
+                    @using (Html.BeginForm("createOrder", "User", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        <div class="form-row textInput" >
-                            <div class="form-group" >
+                        <div class="form-row textInput">
+                            <div class="form-group">
 
-                                @Html.DropDownList("ProductName", ViewBag.ProductName as List<SelectListItem>, "Select Product Name", new { @class = "form-control" })
+                                @Html.DropDownList("FromModel", Model.ProductName as List<SelectListItem>, "Select Product Name", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(va => va.ProductName)
 
                             </div>
@@ -67,6 +68,14 @@
 
                             </div>
                         </div>
+                        <div class="form-row textInput">
+                            <div class="form-group" style="margin-top:20px">
+
+                                @Html.TextBoxFor(va => va.OrderImage, new { type = "file", placeholder = "Upload Image", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.OrderImage)
+
+                            </div>
+                        </div>
 
 
 
@@ -74,8 +83,8 @@
 
                         @Html.ValidationSummary()
                         <div style="display:flex; ">
-                            <button type="submit" class="btn btn-success" style="background-color: #febe19;color:black; font-weight:500;border:none">Order Now</button>
-                            
+                            <button type="submit" class="btn btn-success" style="background-color: #febe19;color:black; font-weight:500;border:none;margin-top:20px;">Order Now</button>
+
                         </div>
 
                     }

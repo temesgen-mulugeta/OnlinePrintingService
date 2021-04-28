@@ -10,13 +10,21 @@ namespace OnlinePrintingService.Controllers.User
 {
     public class UserOrderController : Controller
     {
-        public ActionResult Order()
+
+        public ActionResult createOrder()
+
+
         {
+            var model = new OrdersViewModel();
             using (var context = new dbOPScontext())
             {
-                List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);         
-                return View(productNames);
+                List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);
+              
+                model.ProductName = GetSelectListItems(productNames);
+               
             }
+            return View();
+           
         }
 
         public ActionResult getProductSizes(string productName)
@@ -47,6 +55,20 @@ namespace OnlinePrintingService.Controllers.User
                 dbContext.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
+        }
+        private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> elements)
+        {
+            var selectList = new List<SelectListItem>();
+            var id = 0;
+            foreach (var element in elements)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = id++.ToString() ,
+                    Text = element
+                });
+            }
+            return selectList;
         }
     }
 

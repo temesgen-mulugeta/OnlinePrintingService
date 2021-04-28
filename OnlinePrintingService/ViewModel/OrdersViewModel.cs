@@ -22,6 +22,7 @@ namespace OnlinePrintingService.ViewModel
         public int Quantity { get; set; }
 
         [Required(ErrorMessage = "Please add an image")]
+        [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$", ErrorMessage = "Only Image files allowed.")]
         public byte[] OrderImage { get; set; }
 
 

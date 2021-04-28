@@ -29,17 +29,7 @@ namespace OnlinePrintingService.Controllers.User
            
         }
 
-        [HttpPost]
-        public ActionResult getProductSizes(string ProductName)
-        {
-            var model = new OrdersViewModel();
-            using (var context = new dbOPScontext())
-            {
-                List<string> productSizes = context.Product.Where(p => p.ProductName.Equals(productName)).ToList().ConvertAll(p => p.ProductSize);
-                sizes = productSizes;
-                return Redirect(Request.UrlReferrer.ToString());
-            }
-        }
+  
 
         [HttpPost]
         public ActionResult createOrder(OrdersViewModel orderViewModel)

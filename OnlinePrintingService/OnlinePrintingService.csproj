@@ -213,6 +213,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Pricing.cshtml" />
     <Content Include="Views\UserOrder\createOrder.cshtml" />
+    <Content Include="Views\Product\Products.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -224,7 +225,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="bin\roslyn\" />
     <Folder Include="Views\CreateProduct\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202104221955198_IntityMigration.resx">

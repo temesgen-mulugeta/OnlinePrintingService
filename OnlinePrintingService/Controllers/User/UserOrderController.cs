@@ -12,24 +12,9 @@ namespace OnlinePrintingService.Controllers.User
     {
         public ActionResult createOrder()
         {
-            //generate product name
-            List<SelectListItem> prdtName = new List<SelectListItem>();
-            prdtName.Add(new SelectListItem { Text = "BC", Value = "1" });
-            prdtName.Add(new SelectListItem { Text = "CC", Value = "2" });
-            prdtName.Add(new SelectListItem { Text = "DC", Value = "3" });
-            ViewBag.ProductName = prdtName;
-
-
-            //generate product size
-            List<SelectListItem> prdtSize = new List<SelectListItem>();
-            prdtSize.Add(new SelectListItem { Text = "DD", Value = "1" });
-            prdtSize.Add(new SelectListItem { Text = "EE", Value = "2" });
-            prdtSize.Add(new SelectListItem { Text = "FF", Value = "3" });
-            ViewBag.ProductSize = prdtSize;
-           
             using (var context = new dbOPScontext())
             {
-                List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);
+                List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);         
                 return View(productNames);
             }
            
@@ -37,15 +22,12 @@ namespace OnlinePrintingService.Controllers.User
 
         public ActionResult getProductSizes(string productName)
         {
-
             using (var context = new dbOPScontext())
             {
-                List<string> productSizes = (List<string>)context.Product.Where(p => p.ProductName.Equals(productName)).ToList().ConvertAll(p => p.ProductSize);
-                return View(productSizes);
+                List<string> productSizes = context.Product.Where(p => p.ProductName.Equals(productName)).ToList().ConvertAll(p => p.ProductSize);
+                return View("createOrder", productSizes);
             }
         }
-
-
 
         [HttpPost]
         public ActionResult createOrder(OrdersViewModel orderViewModel)
@@ -53,7 +35,6 @@ namespace OnlinePrintingService.Controllers.User
             using (var dbContext = new dbOPScontext())
             using (var appDbContext = new AppDbContext())
             using (var userStore = new AppUserStore(appDbContext))
-            using (var userManager = new AppUserManager(userStore))
             {
                 var order = new Order
                 {

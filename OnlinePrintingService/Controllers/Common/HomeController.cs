@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using OnlinePrintingService.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace OnlinePrintingService.Controllers
 {
@@ -10,7 +13,11 @@ namespace OnlinePrintingService.Controllers
         }
         public ActionResult Pricing()
         {
-            return View();
+            using (var context = new dbOPScontext())
+            {
+                List<Product> products = context.Product.ToList();
+                return View(products);
+            }
         }
     }
 }

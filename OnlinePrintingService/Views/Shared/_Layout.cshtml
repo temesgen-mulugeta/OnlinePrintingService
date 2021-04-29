@@ -10,6 +10,23 @@
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <link rel="stylesheet" href="../StyleSheets/UserMasterStyle.css">
     <link rel="icon" type="image/png" href="../Images/favicon.png" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .wrapper {
+            min-height: 100%;
+     
+            margin-bottom: -50px;
+        }
+
+        .footer,
+        .push {
+            height: 50px;
+        }
+    </style>
 </head>
 <body>
     @{ 
@@ -18,50 +35,50 @@
         ViewBag.buttonText = ViewBag.isLoggedin ? "Logout" : "Login";
 
     }
+    <div class="wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+            <div class="container-fluid" style="width:100%">
+                <a class="navbar-brand" href="../Home/Index">
+                    <img class="logo" src="../Images/logo.png" alt="" width="130" height="36">
+                </a>
 
-    <nav class="navbar navbar-expand-lg navbar-light"  style="background-color: white;" >
-        <div class="container-fluid" style="width:100%">
-            <a class="navbar-brand" href="../Home/Index">
-                <img class="logo" src="../Images/logo.png" alt="" width="130" height="36">
-            </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navs collapse navbar-collapse" id="navbarNav" style="position: absolute; font-size:1.2rem;  right: 0px; margin-right:100px; ">
+                    <ul class="navbar-nav">
+                        <li class="nav-item" style=" ">
+                            <a class="nav-link active" href="../Home/Index">Home</a>
+                        </li>
+                        <li class="nav-item" style="">
+                            <a class="nav-link" href="../Home/Pricing">Pricing</a>
+                        </li>
+                        <li class="nav-item" style="">
+                            <a class="nav-link" href="../UserOrder/createOrder">Order</a>
+                        </li>
+                        <li class="nav-item">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navs collapse navbar-collapse" id="navbarNav" style="position: absolute; font-size:1.2rem;  right: 0px; margin-right:100px; ">
-                <ul class="navbar-nav">
-                    <li class="nav-item" style=" ">
-                        <a class="nav-link active" href="../Home/Index">Home</a>
-                    </li>
-                    <li class="nav-item" style="">
-                        <a class="nav-link" href="../Home/Pricing">Pricing</a>
-                    </li>
-                    <li class="nav-item" style="">
-                        <a class="nav-link" href="../UserOrder/createOrder">Order</a>
-                    </li>
-                    <li class="nav-item">
-                        
-                        <Button class="nav-link masterbutton" ID="LoginB"  onclick="location.href= '@Url.Action(@ViewBag.isLoggedin ? "Logout" : "Login", "AppUser")' ">
-                            @ViewBag.buttonText
-                           
-                        </Button>
-                    </li>
-                </ul>
+                            <Button class="nav-link masterbutton" ID="LoginB" onclick="location.href= '@Url.Action(@ViewBag.isLoggedin ? "Logout" : "Login", "AppUser")' ">
+                                @ViewBag.buttonText
+
+                            </Button>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+
+
+
+        <div class="container body-content">
+            @RenderBody()
+
+
+
         </div>
-    </nav>
-
-
-
-    <div class="container body-content">
-        @RenderBody()
-        
-
-
+        <div class="push"></div>
     </div>
-   
-</body>
-<footer  style="margin-top:30px; margin-bottom:-20px; background-color:#febe19">
+   <footer  class="footer-copyright footer" style="  width:100%; background-color:#febe19;">
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">
@@ -71,4 +88,6 @@
     <!-- Copyright -->
 
 </footer>
+</body>
+
 </html>

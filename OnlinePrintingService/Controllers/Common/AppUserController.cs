@@ -87,7 +87,7 @@ namespace OnlinePrintingService.Controllers
                     if (userManager.IsInRole(user.Id, "Admin"))
                     {
                         Cookie.AddCookie(user.Id, "Admin", Response);
-                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                        return RedirectToAction("Order", "AdminOrder", new { area = "Admin" });
 
                     }
                     else

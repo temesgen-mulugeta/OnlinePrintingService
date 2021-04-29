@@ -13,10 +13,14 @@ namespace OnlinePrintingService.ViewModel
     }
     public class OrdersViewModel
     {
+
+        [Display(Name = "Product")]
         [Required(ErrorMessage = "Product Name can't be blank")]
+        public String selectedProductName { get; set; }
         public IEnumerable<SelectListItem> ProductName {get; set;}
 
-      
+
+        [Display(Name = " Quantity")]
 
         [Required(ErrorMessage = "Product Price can't be blank")]
         public int Quantity { get; set; }

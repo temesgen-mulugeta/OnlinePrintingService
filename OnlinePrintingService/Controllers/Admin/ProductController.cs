@@ -32,7 +32,7 @@ namespace OnlinePrintingService.Controllers
                 context.Product.Attach(product);
                 context.Product.Remove(product);
                 context.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Products", "Product");
             }
         }
     }

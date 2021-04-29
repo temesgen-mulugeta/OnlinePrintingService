@@ -28,7 +28,7 @@
             <p>
                 Welcome to adey online printing service. <br /> High Quality Printing Service
             </p>
-            <Button ID="orderNowB" class="button" Text="">Order Now</Button>
+            <Button ID="orderNowB" class="button" Text=""  onclick="location.href= '@Url.Action("CreateOrder", "UserOrder")'">Order Now</Button>
         </div>
         <div class="first-container-right">
             <img ID="Image1" src="~/Images/Home.png" />
@@ -44,7 +44,7 @@
     <!--services -->
     <div class="first-container">
         <!--business card -->
-        <a href="Pricing.aspx">
+        <a href="~/Home/Pricing">
 
             <div class="card ">
                 <img class="card-img-top" src="../Images/UserHome/businesscard.jpg" alt="Card image cap">
@@ -58,7 +58,7 @@
 
 
         <!--post Card -->
-        <a href="Pricing.aspx">
+        <a href="~/Home/Pricing">
             <div class="card ">
                 <img class="card-img-top" src="../Images/UserHome/postcard.jpg" alt="Card image cap">
                 <div class="card-body">
@@ -71,7 +71,7 @@
         </a>
 
         <!--Brochures -->
-        <a href="Pricing.aspx">
+        <a href="~/Home/Pricing">
             <div class="card ">
                 <img class="card-img-top" src="../Images/UserHome/brochure.jpg" alt="Card image cap">
                 <div class="card-body">
@@ -84,7 +84,7 @@
         </a>
 
         <!--Stickers -->
-        <a href="Pricing.aspx">
+        <a href="~/Home/Pricing">
             <div class="card ">
                 <img class="card-img-top" src="../Images/UserHome/sticker.jpg" alt="Card image cap">
                 <div class="card-body">

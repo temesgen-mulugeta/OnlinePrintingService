@@ -6,6 +6,15 @@
 <head>
     <link href="../StyleSheets/Orders.css" rel="stylesheet" type="text/css" />
     <title>Make Orders</title>
+
+    <style>
+        .labl{
+            color:lightgray;
+            font-size:0.8rem;
+            font-weight:200;
+            margin-bottom: 10px;
+        }
+    </style>
     
 </head>
 
@@ -41,13 +50,15 @@
                     <h1 style="margin-bottom:20px; margin-top:-50px; font-weight:bolder">Order Now</h1>
 
 
-                    @using (Html.BeginForm("createOrder", "User", FormMethod.Post))
+                    @using (Html.BeginForm("createOrder", "UserOrder", FormMethod.Post,new { enctype="multipart/form-data"}))
                     {
                         @Html.AntiForgeryToken()
                         <div class="form-row textInput">
                             <div class="form-group">
+                                @Html.LabelFor(x => Model.ProductName, htmlAttributes: new { @class = "control-label col-md-2 labl" })
+                                @Html.DropDownListFor(x => Model.selectedProductName, ViewBag.drplist as SelectList , "Select a Product", htmlAttributes: new { @class = "form-control", id = "product" })
+                                
 
-                                @Html.DropDownList("ProductName", Model.ProductName as List<SelectListItem>, "Select Product Name", new { @class = "form-control" }),
                                 @Html.ValidationMessageFor(va => va.ProductName)
 
 
@@ -59,6 +70,7 @@
 
                         <div class="form-row textInput">
                             <div class="form-group" style="margin-top:20px">
+                                @Html.LabelFor(x => Model.Quantity, htmlAttributes: new { @class = "control-label col-md-2 labl" })
 
                                 @Html.TextBoxFor(va => va.Quantity, new { placeholder = "Quantity", @class = "form-control" })
                                 @Html.ValidationMessageFor(va => va.Quantity)
@@ -67,8 +79,9 @@
                         </div>
                         <div class="form-row textInput">
                             <div class="form-group" style="margin-top:20px">
+                                @Html.LabelFor(x => Model.OrderImage, htmlAttributes: new { @class = "control-label col-md-2 labl" })
+                                <input type="file" class="form-control" name="image1" id="image1" placeholder="" />
 
-                                @Html.TextBoxFor(va => va.OrderImage, new { type = "file", placeholder = "Upload Image", @class = "form-control" })
                                 @Html.ValidationMessageFor(va => va.OrderImage)
 
                             </div>

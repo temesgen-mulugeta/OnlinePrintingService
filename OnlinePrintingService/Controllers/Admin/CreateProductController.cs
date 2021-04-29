@@ -21,13 +21,13 @@ namespace OnlinePrintingService.Controllers.Admin
                 var product = new Product
                 {
                     ProductName = productViewModel.ProductName,
-                    ProductSize = productViewModel.ProductSize,
+                
                     Price = productViewModel.Price
                 };
 
                 context.Product.Add(product);
                 context.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Products", "Product");
             }
         }
 

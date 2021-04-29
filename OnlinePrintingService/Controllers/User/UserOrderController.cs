@@ -4,6 +4,7 @@ using OnlinePrintingService.Models;
 using OnlinePrintingService.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace OnlinePrintingService.Controllers.User
@@ -11,60 +12,68 @@ namespace OnlinePrintingService.Controllers.User
     public class UserOrderController : Controller
     {
 
-        static List<string> sizes = new List<string>();
-
         public ActionResult createOrder()
 
 
         {
+            var loggedin = OnlinePrintingService.Helper.Cookie.isUserLoggedIn(Request);
+            if (!loggedin)
+            {
+                return RedirectToAction("Login", "AppUser");
+            }
+
             var model = new OrdersViewModel();
             using (var context = new dbOPScontext())
             {
-                List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);
-                model.ProductName = GetSelectListItems(productNames);            
+
+                var getprdList = context.Product.ToList();
+                SelectList list = new SelectList(getprdList, "ProductID", "ProductName");
+                ViewBag.drplist = list;
+               // List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);
+                //model.ProductName = GetSelectListItems(productNames);            
 
 
             }
-            return View(model);
+            return View();
            
         }
 
   
 
         [HttpPost]
-        public ActionResult createOrder(OrdersViewModel orderViewModel)
+        public ActionResult createOrder(OrdersViewModel orderViewModel, HttpPostedFileBase image1)
         {
             using (var dbContext = new dbOPScontext())
             using (var appDbContext = new AppDbContext())
             using (var userStore = new AppUserStore(appDbContext))
             {
-                var order = new Order
+
+                byte[] img=null;
+                if(image1 != null)
                 {
-                    ProductID = dbContext.Product.Where(p => p.ProductName.Equals(orderViewModel.ProductName) && p.ProductSize.Equals(orderViewModel.ProductSize)).ToList().First().ProductID,
-                    OrderQuantity = orderViewModel.Quantity,
-                    OrderImage = orderViewModel.OrderImage,
-                    UserID = userStore.FindByIdAsync(Cookie.GetCookieData(Request).userId).Result.Id
-                };
+                    img = new byte[image1.ContentLength];
+                    image1.InputStream.Read(img, 0, image1.ContentLength);
+                }
+                var order = new Order();
+
+                order.ProductID = long.Parse(orderViewModel.selectedProductName);
+                order.OrderQuantity = orderViewModel.Quantity;
+                order.OrderImage = img;
+                order.UserID = Cookie.GetCookieData(Request).userId;
+                
 
                 dbContext.Order.Add(order);
                 dbContext.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("OrderComplete", "UserOrder");
             }
         }
-        private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> elements)
+
+        public ActionResult OrderComplete()
         {
-            var selectList = new List<SelectListItem>();
-            var id = 0;
-            foreach (var element in elements)
-            {
-                selectList.Add(new SelectListItem
-                {
-                    Value = id++.ToString() ,
-                    Text = element
-                });
-            }
-            return selectList;
+            return View();
         }
+
+
     }
 
 }

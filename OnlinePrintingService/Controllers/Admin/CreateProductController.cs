@@ -1,5 +1,5 @@
-﻿using OnlinePrintingService.Models;
-using OnlinePrintingService.ViewModel;
+﻿using OnlinePrintingService.ViewModel;
+using OnlinePrintingServiceAPI.Models;
 using System.Web.Mvc;
 
 namespace OnlinePrintingService.Controllers.Admin

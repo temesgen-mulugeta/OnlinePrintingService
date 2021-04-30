@@ -1,5 +1,5 @@
 ﻿using OnlinePrintingService.Identity;
-using OnlinePrintingService.Models;
+using OnlinePrintingServiceAPI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -21,7 +21,7 @@ namespace OnlinePrintingService.Controllers
         {
 
             var context = new dbOPScontext();
-            var userStore = new AppUserStore(context);
+            //var userStore = new AppUserStore(context);
             List <OrderList> ordList = new List<OrderList>();
             OrderList od = null;
             List<Order> orders = context.Order.ToList();
@@ -32,7 +32,7 @@ namespace OnlinePrintingService.Controllers
                 od.productName  = context.Product.Where(p => p.ProductID.Equals(ordr.ProductID)).ToList().First().ProductName;
                 int x = ordr.UserID.IndexOf("&role");
                 string id = ordr.UserID.Substring(0, x);
-                od.customerName = context.Users.Where(c => c.Id.Equals(id)).ToList().First().UserName;
+               // od.customerName = context.Users.Where(c => c.Id.Equals(id)).ToList().First().UserName;
                 od.quantity = ordr.OrderQuantity;
                 od.image = ordr.OrderImage;
                 ordList.Add(od);

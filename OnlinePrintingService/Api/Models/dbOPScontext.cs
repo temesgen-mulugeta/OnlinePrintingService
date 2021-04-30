@@ -5,10 +5,11 @@ using System.Web;
 using System.Data.Entity;
 using OnlinePrintingService.Identity;
 
-namespace OnlinePrintingService.Models
+namespace OnlinePrintingServiceAPI.Models
 {
-    public class dbOPScontext: AppDbContext
+    public class dbOPScontext: DbContext
     {
+
         public DbSet<Product> Product { get; set; }
         public DbSet<Order> Order { get; set; }
 

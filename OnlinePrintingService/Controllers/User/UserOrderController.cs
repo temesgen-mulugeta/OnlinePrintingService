@@ -1,9 +1,11 @@
 ﻿using OnlinePrintingService.Helper;
 using OnlinePrintingService.Identity;
-using OnlinePrintingService.Models;
 using OnlinePrintingService.ViewModel;
+using OnlinePrintingServiceAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,9 +19,9 @@ namespace OnlinePrintingService.Controllers.User
 
         {
             var loggedin = OnlinePrintingService.Helper.Cookie.isUserLoggedIn(Request);
-            if (!loggedin)
+           // if (!loggedin)
             {
-                return RedirectToAction("Login", "AppUser");
+               // return RedirectToAction("Login", "AppUser");
             }
 
             var model = new OrdersViewModel();
@@ -41,31 +43,43 @@ namespace OnlinePrintingService.Controllers.User
   
 
         [HttpPost]
-        public ActionResult createOrder(OrdersViewModel orderViewModel, HttpPostedFileBase image1)
+        public ActionResult createOrder(OrdersViewModel orderViewModel, HttpPostedFileBase image)
         {
-            using (var dbContext = new dbOPScontext())
-            using (var appDbContext = new AppDbContext())
-            using (var userStore = new AppUserStore(appDbContext))
-            {
+            
 
-                byte[] img=null;
-                if(image1 != null)
+                byte[] img = null;
+                if (image != null)
                 {
-                    img = new byte[image1.ContentLength];
-                    image1.InputStream.Read(img, 0, image1.ContentLength);
+                    img = new byte[image.ContentLength];
+                    image.InputStream.Read(img, 0, image.ContentLength);
                 }
-                var order = new Order();
+                var order = new Order()
+                {
+                    ProductID = long.Parse(orderViewModel.selectedProductName),
+                    OrderQuantity = orderViewModel.Quantity,
+                    OrderImage = img,
+                    UserID = "silv"
+                };
 
-                order.ProductID = long.Parse(orderViewModel.selectedProductName);
-                order.OrderQuantity = orderViewModel.Quantity;
-                order.OrderImage = img;
-                order.UserID = Cookie.GetCookieData(Request).userId;
-                
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("api");
+                    var postTask = client.PostAsJsonAsync<Order>("Orders", order);
+                    postTask.Wait();
 
-                dbContext.Order.Add(order);
-                dbContext.SaveChanges();
-                return RedirectToAction("OrderComplete", "UserOrder");
-            }
+                    var result = postTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("OrderComplete", "UserOrder");
+                    }
+                }
+
+                ModelState.AddModelError(string.Empty, "Sorry, something went wrong.");
+                return View();
+
+
+
+            
         }
 
         public ActionResult OrderComplete()

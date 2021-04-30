@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace OnlinePrintingService.Models
+namespace OnlinePrintingServiceAPI.Models
 {
     public class Order
     {

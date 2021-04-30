@@ -13,7 +13,7 @@ namespace OnlinePrintingService
         public void Configuration(IAppBuilder app)
         {
             app.UseCookieAuthentication(new CookieAuthenticationOptions() { AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie, LoginPath = new PathString("/User/Login") });
-            CreateRolesAndUsers();
+          //  CreateRolesAndUsers();
         }
 
         public void CreateRolesAndUsers()

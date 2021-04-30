@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnlinePrintingService.Models
+namespace OnlinePrintingServiceAPI.Models
 {
     public class Product
     {

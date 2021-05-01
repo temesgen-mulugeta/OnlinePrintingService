@@ -7,7 +7,7 @@ namespace OnlinePrintingService.Controllers
 {
     public class AdminOrderController : Controller
     {
-        private class OrderResult
+        public class OrderResult
         {
             public long orderId { set; get; }
             public string customerName { set; get; }
@@ -22,8 +22,7 @@ namespace OnlinePrintingService.Controllers
             var orderList = OrderREST.GetAllOrders();
             var productList = ProductREST.GetAllProducts();
 
-
-            IEnumerable<OrderResult> OrderResultList = from order in orderList
+           var OrderResultList = (from order in orderList
                                                     join product in productList on order.ProductID equals product.ProductID
                                                     where order.ProductID == product.ProductID
                                                     where order.ProductID == product.ProductID
@@ -33,7 +32,7 @@ namespace OnlinePrintingService.Controllers
                                                         quantity = order.OrderQuantity,
                                                         image = order.OrderImage,
                                                         productName = product.ProductName,
-                                                    };
+                                                    }).ToList();
             ViewBag.orders = OrderResultList;
             return View();
 

@@ -10,8 +10,6 @@ namespace OnlinePrintingService.Controllers.User
 {
     public class UserOrderController : Controller
     {
-
-        [HttpPost]
         public ActionResult createOrder()
         {
 

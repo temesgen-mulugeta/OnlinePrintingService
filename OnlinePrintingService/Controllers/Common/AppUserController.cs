@@ -1,4 +1,4 @@
-﻿/*using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
@@ -7,6 +7,9 @@ using OnlinePrintingService.ViewModel;
 using System.Diagnostics;
 using System.Linq;
 using OnlinePrintingService.Helper;
+using OnlinePrintingService.Identity;
+using System.Net.Http;
+using System;
 
 namespace OnlinePrintingService.Controllers
 {
@@ -18,42 +21,42 @@ namespace OnlinePrintingService.Controllers
             return View();
         }
 
-        
+
 
         [HttpPost]
         public ActionResult SignUp(SignUpViewModel signUpViewModel)
         {
             if (ModelState.IsValid)
             {
-                using (var appDbContext = new AppDbContext())
-                using (var userStore = new AppUserStore(appDbContext))
-                using (var userManager = new AppUserManager(userStore))
+
                 {
                     var passwordHash = Crypto.HashPassword(signUpViewModel.Password);
                     var user = new AppUser()
 
                     {
-                    UserName = signUpViewModel.UserName,
-                    Email = signUpViewModel.Email,
-                    PasswordHash = passwordHash,
-                    PhoneNumber = signUpViewModel.PhoneNumber
+                        UserName = signUpViewModel.UserName,
+                        Email = signUpViewModel.Email,
+                        PasswordHash = passwordHash,
+                        PhoneNumber = signUpViewModel.PhoneNumber
                     };
-                    IdentityResult result = userManager.Create(user);
-                    if (result.Succeeded)
+
+                    using (var client = new HttpClient())
                     {
+                        client.BaseAddress = new Uri("https://localhost:44398/api/");
+                        var postTask = client.PostAsJsonAsync<AppUser>("Auth", user);
+                        postTask.Wait();
+                        var result = postTask.Result;
 
+                        if (result.IsSuccessStatusCode)
+                        {
 
-                        userManager.AddToRole(user.Id, "User");
+                           // Cookie.AddCookie(user.UserName, "Admin", Response);
 
-                        var authenticationManager = HttpContext.GetOwinContext().Authentication;
-                        var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-                        authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
-                        Cookie.AddCookie(user.UserName, "Admin", Response);
-
-                    }
-                    else
-                    {
-                        Debug.Print(string.Join("\n", result.Errors.ToArray()));
+                        }
+                        else
+                        {
+                            //Debug.Print(string.Join("\n", result..ToArray()));
+                        }
                     }
 
                     return RedirectToAction("Index", "Home");
@@ -62,48 +65,45 @@ namespace OnlinePrintingService.Controllers
             else
             {
                 ModelState.AddModelError("SignUp Error", "Invalid data");
-                return View();       
+                return View();
             }
         }
 
-        public ActionResult Login()
-        {
-            return View();
-        }
+        public ActionResult Login() => View();
 
-        [HttpPost]
+
+       [HttpGet]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
-            
-            using (var appDbContext = new AppDbContext())
-            using (var userStore = new AppUserStore(appDbContext))
-            using (var userManager = new AppUserManager(userStore))
+
+
             {
-                var user = userManager.Find(loginViewModel.UserName, loginViewModel.Password);
-                if (user != null)
+
+                using (var client = new HttpClient())
                 {
-                    var authenticationManager = HttpContext.GetOwinContext().Authentication;
-                    var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-                    authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
-                    if (userManager.IsInRole(user.Id, "Admin"))
+                    client.BaseAddress = new Uri("https://localhost:44398/api/");
+                    var getTask = client.GetAsync("Auth/" + $"{loginViewModel.UserName}:{loginViewModel.Password}");
+                    getTask.Wait();
+                    var result = getTask.Result;
+
+                    if (result.IsSuccessStatusCode)
                     {
-                        Cookie.AddCookie(user.Id, "Admin", Response);
-                        return RedirectToAction("Order", "AdminOrder", new { area = "Admin" });
+                        Debug.Print("yeeyyyyyy");
+
+                        // Cookie.AddCookie(user.UserName, "Admin", Response);
+                        return View();
+
 
                     }
                     else
                     {
-                        Cookie.AddCookie(user.Id, "User", Response);
-                        return RedirectToAction("Index", "Home");
+                        Debug.Print(result.ReasonPhrase);
+
+                        ModelState.AddModelError("Authentication Error", "Invalid username and/or password");
+                        return View();
                     }
                 }
-                else
-                {
-                    ModelState.AddModelError("Authentication Error", "Invalid username and/or password");
-                    return View();
-                }
             }
-
 
         }
 
@@ -115,8 +115,6 @@ namespace OnlinePrintingService.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-     
+        
     }
 }
-
-*/

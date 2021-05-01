@@ -194,6 +194,7 @@
     <Compile Include="Controllers\Admin\AdminOrderController.cs" />
     <Compile Include="Controllers\Admin\ProductController.cs" />
     <Compile Include="Controllers\User\UserOrderController.cs" />
+    <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Global.asax.cs">

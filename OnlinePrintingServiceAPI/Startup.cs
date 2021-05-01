@@ -19,7 +19,7 @@ namespace OnlinePrintingService
 
         public void CreateRolesAndUsers()
         {
-            var appDbContext = new AppDbContext();
+            var appDbContext = new AuthDbContext();
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(appDbContext));
             var appUserStore = new AppUserStore(appDbContext);
             var userManager = new AppUserManager(appUserStore);

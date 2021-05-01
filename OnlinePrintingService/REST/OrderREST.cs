@@ -11,7 +11,7 @@ namespace OnlinePrintingService.REST
     public static class OrderREST
     {
         [HttpGet]
-        public static IEnumerable<Order> GetAllOrder()
+        public static IEnumerable<Order> GetAllOrders()
         {
             using (var client = new HttpClient())
             {
@@ -89,5 +89,4 @@ namespace OnlinePrintingService.REST
             }
         }
     }
-}
 }

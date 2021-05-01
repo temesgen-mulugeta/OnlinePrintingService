@@ -1,12 +1,14 @@
-﻿using OnlinePrintingService.ViewModel;
-using OnlinePrintingServiceAPI.Models;
+﻿using OnlinePrintingService.Models;
+using OnlinePrintingService.ViewModel;
+using System;
+using System.Diagnostics;
+using System.Net.Http;
 using System.Web.Mvc;
 
 namespace OnlinePrintingService.Controllers.Admin
 {
     public class CreateProductController : Controller
     {
-        // GET: CreateProduct
         public ActionResult CreateProduct()
         {
             return View();
@@ -16,21 +18,28 @@ namespace OnlinePrintingService.Controllers.Admin
         [HttpPost]
         public ActionResult CreateProduct(ProductViewModel productViewModel)
         {
-            using (var context = new dbOPScontext())
-            {
+            
                 var product = new Product
                 {
                     ProductName = productViewModel.ProductName,
-                
                     Price = productViewModel.Price
                 };
 
-                context.Product.Add(product);
-                context.SaveChanges();
-                return RedirectToAction("Products", "Product");
-            }
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:44309/api/");
+                    var postTask = client.PostAsJsonAsync<Product>("Products", product);
+                    postTask.Wait();
+
+                    var result = postTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Products", "Product");
+                    }
+                    Debug.Print(result.ReasonPhrase);
+                    ModelState.AddModelError(string.Empty, "Sorry, something went wrong.");
+                }
+                return View();
         }
-
-
     }
 }

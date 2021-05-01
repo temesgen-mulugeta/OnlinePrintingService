@@ -187,9 +187,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\Controllers\OrdersApiController.cs" />
-    <Compile Include="Api\Controllers\testProductApiController.cs" />
-    <Compile Include="Api\Controllers\ProductsApiController.cs" />
+    <Compile Include="Api\Controllers\OrdersController.cs" />
+    <Compile Include="Api\Controllers\ProductsController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Admin\CreateProductController.cs" />
@@ -198,6 +197,8 @@
     <Compile Include="Controllers\Admin\AdminOrderController.cs" />
     <Compile Include="Controllers\Admin\ProductController.cs" />
     <Compile Include="Controllers\User\UserOrderController.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -243,6 +244,7 @@
     <Content Include="Views\AdminOrder\Order.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\UserOrder\OrderComplete.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

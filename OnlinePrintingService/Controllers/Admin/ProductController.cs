@@ -1,6 +1,8 @@
 ﻿
 using OnlinePrintingService.Models;
+using OnlinePrintingService.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
@@ -20,26 +22,59 @@ namespace OnlinePrintingService.Controllers
                 responseTask.Wait();
 
                 var result = responseTask.Result;
-                IQueryable<Product> products;
+                IEnumerable<Product> products;
 
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<IQueryable<Product>>();
+                    var readTask = result.Content.ReadAsAsync<IList<Product>>();
                     readTask.Wait();
                     products = readTask.Result;
                 }
                 else
                 {
                     Debug.Print(result.ReasonPhrase);
-                    products = Enumerable.Empty<Product>().AsQueryable();
+                    products = Enumerable.Empty<Product>();
                     ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
                 }
                 return View(products);
             }
         }
 
+        public ActionResult CreateProduct()
+        {
+            return View();
+        }
 
-        public ActionResult removeProduct(long ProductID)
+
+        [HttpPost]
+        public ActionResult CreateProduct(ProductViewModel productViewModel)
+        {
+
+            var product = new Product
+            {
+                ProductName = productViewModel.ProductName,
+                Price = productViewModel.Price
+            };
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44398/api/");
+                var postTask = client.PostAsJsonAsync<Product>("Products", product);
+                postTask.Wait();
+
+                var result = postTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Products", "Product");
+                }
+                Debug.Print(result.ReasonPhrase);
+                ModelState.AddModelError(string.Empty, "Sorry, something went wrong.");
+            }
+            return View();
+        }
+
+
+        public ActionResult deleteProduct(long ProductID)
         {
             using (var client = new HttpClient())
             {

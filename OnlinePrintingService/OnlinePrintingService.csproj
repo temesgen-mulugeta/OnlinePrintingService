@@ -231,7 +231,7 @@
     <Content Include="Views\Home\Pricing.cshtml" />
     <Content Include="Views\UserOrder\createOrder.cshtml" />
     <Content Include="Views\Product\Products.cshtml" />
-    <Content Include="Views\CreateProduct\CreateProduct.cshtml" />
+    <Content Include="Views\Product\CreateProduct.cshtml" />
     <Content Include="Views\AdminOrder\Order.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\UserOrder\OrderComplete.cshtml" />

@@ -1,7 +1,6 @@
-﻿/*using OnlinePrintingService.ViewModel;
+﻿/*
+using OnlinePrintingService.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +14,7 @@ namespace OnlinePrintingService.Controllers.User
 
 
         {
-            var loggedin = OnlinePrintingService.Helper.Cookie.isUserLoggedIn(Request);
+           // var loggedin = OnlinePrintingService.Helper.Cookie.isUserLoggedIn(Request);
            // if (!loggedin)
             {
                // return RedirectToAction("Login", "AppUser");
@@ -88,4 +87,5 @@ namespace OnlinePrintingService.Controllers.User
     }
 
 }
+
 */

@@ -10,7 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using OnlinePrintingServiceAPI.Models;
 
-namespace OnlinePrintingService.Api.Controllers
+namespace OnlinePrintingServiceApi.Controllers
 {
     public class ProductsController : ApiController
     {

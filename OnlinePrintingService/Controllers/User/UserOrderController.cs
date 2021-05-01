@@ -1,7 +1,4 @@
-﻿using OnlinePrintingService.Helper;
-using OnlinePrintingService.Identity;
-using OnlinePrintingService.ViewModel;
-using OnlinePrintingServiceAPI.Models;
+﻿/*using OnlinePrintingService.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +22,10 @@ namespace OnlinePrintingService.Controllers.User
             }
 
             var model = new OrdersViewModel();
-            using (var context = new dbOPScontext())
+           // using (var context = new dbOPScontext())
             {
 
-                var getprdList = context.Product.ToList();
+              //  var getprdList = context.Product.ToList();
                 SelectList list = new SelectList(getprdList, "ProductID", "ProductName");
                 ViewBag.drplist = list;
                // List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);
@@ -91,3 +88,4 @@ namespace OnlinePrintingService.Controllers.User
     }
 
 }
+*/

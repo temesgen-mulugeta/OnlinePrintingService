@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity;
 
 
-namespace OnlinePrintingService.Identity
+namespace OnlinePrintingServiceApi.Identity
 {
     public class AppUserManager : UserManager<AppUser>
     {

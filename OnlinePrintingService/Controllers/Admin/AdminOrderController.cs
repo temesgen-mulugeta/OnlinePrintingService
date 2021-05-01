@@ -1,6 +1,4 @@
-﻿using OnlinePrintingService.Identity;
-using OnlinePrintingServiceAPI.Models;
-using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -20,16 +18,16 @@ namespace OnlinePrintingService.Controllers
         public ActionResult Order()
         {
 
-            var context = new dbOPScontext();
+          //  var context = new dbOPScontext();
             //var userStore = new AppUserStore(context);
             List <OrderList> ordList = new List<OrderList>();
             OrderList od = null;
-            List<Order> orders = context.Order.ToList();
+           // List<Order> orders = context.Order.ToList();
             foreach (var ordr in orders)
             {
                od = new OrderList();
                 od.orderId = ordr.OrderID;
-                od.productName  = context.Product.Where(p => p.ProductID.Equals(ordr.ProductID)).ToList().First().ProductName;
+               // od.productName  = context.Product.Where(p => p.ProductID.Equals(ordr.ProductID)).ToList().First().ProductName;
                 int x = ordr.UserID.IndexOf("&role");
                 string id = ordr.UserID.Substring(0, x);
                // od.customerName = context.Users.Where(c => c.Id.Equals(id)).ToList().First().UserName;
@@ -53,8 +51,8 @@ namespace OnlinePrintingService.Controllers
             }
 
             
-            */
-          /*  var orders = (from order in context.Order
+            
+           var orders = (from order in context.Order
                               join product in context.Product on order.ProductID equals product.ProductID
                               join user in context.Users on order.UserID equals user.Id
                               where order.UserID == user.Id && order.ProductID == product.ProductID
@@ -64,7 +62,7 @@ namespace OnlinePrintingService.Controllers
                                   CustomerName = user.UserName,
                                   ProductName = product.ProductName,
                                   Image = order.OrderImage,
-                              });*/
+                              });
 
                 ViewBag.orders = ordList;
 
@@ -90,3 +88,5 @@ namespace OnlinePrintingService.Controllers
 
     }
 }
+
+*/

@@ -1,5 +1,5 @@
 ﻿
-using OnlinePrintingServiceAPI.Models;
+using OnlinePrintingService.Models;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace OnlinePrintingService.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44309/api/");
+                client.BaseAddress = new Uri("https://localhost:44398/api/");
                 var responseTask = client.GetAsync("Products");
                 responseTask.Wait();
 
@@ -43,7 +43,7 @@ namespace OnlinePrintingService.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44309/api/Products");
+                client.BaseAddress = new Uri("https://localhost:44398/api/Products");
                 var deleteTask = client.DeleteAsync("Products/" + ProductID.ToString());
                 deleteTask.Wait();
                 return RedirectToAction("Products", "Product");

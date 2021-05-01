@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using OnlinePrintingService.Identity;
+﻿/*using Microsoft.AspNet.Identity;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
@@ -18,6 +17,8 @@ namespace OnlinePrintingService.Controllers
         {
             return View();
         }
+
+        
 
         [HttpPost]
         public ActionResult SignUp(SignUpViewModel signUpViewModel)
@@ -117,3 +118,5 @@ namespace OnlinePrintingService.Controllers
      
     }
 }
+
+*/

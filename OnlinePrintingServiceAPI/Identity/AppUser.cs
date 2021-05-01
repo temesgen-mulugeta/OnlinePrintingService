@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace OnlinePrintingService.Identity
+namespace OnlinePrintingServiceApi.Identity
 {
     public class AppUser : IdentityUser
     {

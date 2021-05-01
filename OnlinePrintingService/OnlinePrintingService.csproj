@@ -187,8 +187,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\Controllers\OrdersController.cs" />
-    <Compile Include="Api\Controllers\ProductsController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Admin\CreateProductController.cs" />
@@ -204,18 +202,11 @@
     </Compile>
     <Compile Include="Helper\Cookie.cs" />
     <Compile Include="Helper\CookieData.cs" />
-    <Compile Include="Api\Identity\AppDbContext.cs" />
-    <Compile Include="Api\Identity\AppUser.cs" />
-    <Compile Include="Api\Identity\AppUserManager.cs" />
-    <Compile Include="Api\Identity\AppUserStore.cs" />
     <Compile Include="Migrations\202104221955198_IntityMigration.cs" />
     <Compile Include="Migrations\202104221955198_IntityMigration.Designer.cs">
       <DependentUpon>202104221955198_IntityMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Api\Models\dbOPScontext.cs" />
-    <Compile Include="Api\Models\Order.cs" />
-    <Compile Include="Api\Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CreateProductViewModel.cs" />

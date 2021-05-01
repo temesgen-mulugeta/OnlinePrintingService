@@ -27,7 +27,7 @@ namespace OnlinePrintingServiceAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (userManager.FindById(appUser.Id) == null)
+            if (userManager.FindByEmail(appUser.Email) == null)
             {
 
                 IdentityResult result = userManager.Create(appUser);
@@ -50,9 +50,9 @@ namespace OnlinePrintingServiceAPI.Controllers
 
         }
 
-        // GET: api/Auth
+        // GET: api/Auth/username&password
 
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(AppUser))]
         public IHttpActionResult Login(string credentials)
         {
 
@@ -64,7 +64,7 @@ namespace OnlinePrintingServiceAPI.Controllers
 
             var encoding = Encoding.GetEncoding("iso-8859-1");
             credentials = encoding.GetString(Convert.FromBase64String(credentials));
-            int separator = credentials.IndexOf(':');
+            int separator = credentials.IndexOf('&');
             string name = credentials.Substring(0, separator);
             string password = credentials.Substring(separator + 1);
 
@@ -78,11 +78,8 @@ namespace OnlinePrintingServiceAPI.Controllers
 
                 if (userIdentity.IsAuthenticated)
                 {
-                    return Ok();
+                    return Ok(user);
                 }
-
-
-
 
                 if (userManager.IsInRole(user.Id, "Admin")) 
                 {

@@ -50,12 +50,12 @@ namespace OnlinePrintingService.Controllers
                         if (result.IsSuccessStatusCode)
                         {
 
-                           // Cookie.AddCookie(user.UserName, "Admin", Response);
+                            // Cookie.AddCookie(user.UserName, "Admin", Response);
 
                         }
                         else
                         {
-                            //Debug.Print(string.Join("\n", result..ToArray()));
+                            Debug.Print(result.ReasonPhrase);
                         }
                     }
 
@@ -82,15 +82,18 @@ namespace OnlinePrintingService.Controllers
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri("https://localhost:44398/api/");
-                    var getTask = client.GetAsync("Auth/" + $"{loginViewModel.UserName}:{loginViewModel.Password}");
+                    var getTask = client.GetAsync("Auth/" + $"{loginViewModel.UserName}&{loginViewModel.Password}");
                     getTask.Wait();
                     var result = getTask.Result;
 
                     if (result.IsSuccessStatusCode)
                     {
-                        Debug.Print("yeeyyyyyy");
+                        Debug.Print("User logged in");
+                        var readTask = result.Content.ReadAsAsync<AppUser>();
+                        readTask.Wait();
+                        var user = readTask.Result;
 
-                        // Cookie.AddCookie(user.UserName, "Admin", Response);
+                        //Cookie.AddCookie(user.UserName, "Admin", Response);
                         return View();
 
 

@@ -17,6 +17,7 @@ namespace OnlinePrintingServiceApi.Controllers
         private dbOPScontext db = new dbOPScontext();
 
         // GET: api/Products
+        [ResponseType(typeof(IList<Product>))]
         public IHttpActionResult GetProduct()
         {
             return Ok(db.Product.ToList());

@@ -39,6 +39,33 @@ namespace OnlinePrintingService.Controllers
             }
         }
 
+        [HttpGet]
+        public static Product getProduct(long ProductID)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44398/api/");
+                var responseTask = client.GetAsync("Products" + ProductID.ToString());
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                Product product;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<Product>();
+                    readTask.Wait();
+                    product = readTask.Result;
+                }
+                else
+                {
+                    Debug.Print(result.ReasonPhrase);
+                    product = new Product { ProductID = 0, ProductName = "Not Available" };
+                }
+                return product;
+            }
+        }
+
 
         [HttpGet]
         public ActionResult Products()
@@ -90,7 +117,7 @@ namespace OnlinePrintingService.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44398/api/Products");
+                client.BaseAddress = new Uri("https://localhost:44398/api/");
                 var deleteTask = client.DeleteAsync("Products/" + ProductID.ToString());
                 deleteTask.Wait();
                 return RedirectToAction("Products", "Product");

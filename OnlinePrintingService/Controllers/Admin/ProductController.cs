@@ -13,7 +13,7 @@ namespace OnlinePrintingService.Controllers
     public class ProductController : Controller
     {
         [HttpGet]
-        public ActionResult Products()
+        public static IEnumerable<Product> getAllProducts()
         {
             using (var client = new HttpClient())
             {
@@ -34,10 +34,22 @@ namespace OnlinePrintingService.Controllers
                 {
                     Debug.Print(result.ReasonPhrase);
                     products = Enumerable.Empty<Product>();
-                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
                 }
-                return View(products);
+                return products;
             }
+        }
+
+
+        [HttpGet]
+        public ActionResult Products()
+        {
+            var products = getAllProducts();
+            if (products.Count() == 0)
+            {
+                ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+            }
+            return View(products);
+
         }
 
         public ActionResult CreateProduct()

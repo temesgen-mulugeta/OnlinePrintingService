@@ -1,39 +1,36 @@
-﻿/*
+﻿
+using OnlinePrintingService.Models;
 using OnlinePrintingService.ViewModel;
 using System;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace OnlinePrintingService.Controllers.User
 {
     public class UserOrderController : Controller
     {
 
+        [HttpPost]
         public ActionResult createOrder()
-
-
         {
-           // var loggedin = OnlinePrintingService.Helper.Cookie.isUserLoggedIn(Request);
-           // if (!loggedin)
-            {
-               // return RedirectToAction("Login", "AppUser");
-            }
 
             var model = new OrdersViewModel();
-           // using (var context = new dbOPScontext())
+            var productList = ProductController.getAllProducts();
+
+            SelectList list = new SelectList(productList, "ProductID", "ProductName");
+            ViewBag.drplist = list;
+
+            var productNameListItems = productList.Select(p => new SelectListItem
             {
+                Text = p.ProductName,
+                Value = p.ProductName,
+            });
 
-              //  var getprdList = context.Product.ToList();
-                SelectList list = new SelectList(getprdList, "ProductID", "ProductName");
-                ViewBag.drplist = list;
-               // List<string> productNames = context.Product.ToList().ConvertAll(p => p.ProductName);
-                //model.ProductName = GetSelectListItems(productNames);            
-
-
-            }
+            model.ProductName = productNameListItems;
             return View();
-           
+
         }
 
   
@@ -41,9 +38,7 @@ namespace OnlinePrintingService.Controllers.User
         [HttpPost]
         public ActionResult createOrder(OrdersViewModel orderViewModel, HttpPostedFileBase image)
         {
-            
-
-                byte[] img = null;
+            byte[] img = null;
                 if (image != null)
                 {
                     img = new byte[image.ContentLength];
@@ -57,25 +52,22 @@ namespace OnlinePrintingService.Controllers.User
                     UserID = "silv"
                 };
 
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("api");
-                    var postTask = client.PostAsJsonAsync<Order>("Orders", order);
-                    postTask.Wait();
+            using (var client = new HttpClient())
+            {
 
-                    var result = postTask.Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        return RedirectToAction("OrderComplete", "UserOrder");
-                    }
+                client.BaseAddress = new Uri("https://localhost:44398/api/");
+                var postTask = client.PostAsJsonAsync<Order>("Orders", order);
+                postTask.Wait();
+
+                var result = postTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("OrderComplete", "UserOrder");
                 }
+            }
 
                 ModelState.AddModelError(string.Empty, "Sorry, something went wrong.");
-                return View();
-
-
-
-            
+                return View();    
         }
 
         public ActionResult OrderComplete()
@@ -88,4 +80,4 @@ namespace OnlinePrintingService.Controllers.User
 
 }
 
-*/
+

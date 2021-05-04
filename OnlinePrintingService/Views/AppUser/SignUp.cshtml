@@ -36,12 +36,21 @@
                         <div class="form-row textInput">
                             <div class="form-group">
 
-                                @Html.TextBoxFor(va => va.UserName, new { placeholder = "First Name", @class = "form-control" })
-                                @Html.ValidationMessageFor(va => va.UserName)
+                                @Html.TextBoxFor(va => va.FirstName, new { placeholder = "First Name", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.FirstName)
 
                             </div>
                         </div>
-                       
+                        <div class="form-row textInput">
+                            <div class="form-group">
+
+                                @Html.TextBoxFor(va => va.LastName, new { placeholder = "Last Name", @class = "form-control" })
+                                @Html.ValidationMessageFor(va => va.LastName)
+
+                            </div>
+                        </div>
+                        
+
                         <div class="form-row textInput">
                             <div class="form-group">
 

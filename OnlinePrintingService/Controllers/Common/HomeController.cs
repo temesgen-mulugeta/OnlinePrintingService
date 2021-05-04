@@ -1,5 +1,5 @@
-﻿/*
- * using System.Collections.Generic;
+﻿using OnlinePrintingService.REST;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -11,14 +11,21 @@ namespace OnlinePrintingService.Controllers
         {
             return View();
         }
+
+        [HttpGet]
         public ActionResult Pricing()
         {
-            using (var context = new dbOPScontext())
-            {
-                List<Product> products = context.Product.ToList();
+
+          
+                var products = ProductREST.GetAllProducts();
+                if (products.Count() == 0)
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                }
                 return View(products);
-            }
+
+            
+
         }
     }
 }
-*/

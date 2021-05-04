@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlinePrintingService", "On
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlinePrintingServiceAPI", "OnlinePrintingServiceAPI\OnlinePrintingServiceAPI.csproj", "{4E7AE10E-9C93-4E4A-90BF-9A4C473C4EBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlinePRintingServiceIdentityAPI", "OnlinePRintingServiceIdentityAPI\OnlinePRintingServiceIdentityAPI.csproj", "{3C75E98A-1148-47F0-9E92-AC0B39B4FAAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4E7AE10E-9C93-4E4A-90BF-9A4C473C4EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E7AE10E-9C93-4E4A-90BF-9A4C473C4EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E7AE10E-9C93-4E4A-90BF-9A4C473C4EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C75E98A-1148-47F0-9E92-AC0B39B4FAAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C75E98A-1148-47F0-9E92-AC0B39B4FAAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C75E98A-1148-47F0-9E92-AC0B39B4FAAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C75E98A-1148-47F0-9E92-AC0B39B4FAAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

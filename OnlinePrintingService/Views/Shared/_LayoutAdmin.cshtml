@@ -13,7 +13,7 @@
 </head>
 <body>
     @{ 
-        ViewBag.isLoggedin = OnlinePrintingService.Helper.Cookie.isUserLoggedIn(Request);
+        ViewBag.isLoggedin = OnlinePrintingService.Helper.Cookiez.isUserLoggedIn(Request);
         
         ViewBag.buttonText = ViewBag.isLoggedin ? "Logout" : "Login";
 
@@ -37,7 +37,7 @@
                         <a class="nav-link" href="../Product/Products">Products</a>
                     </li>
                     <li class="nav-item" style="">
-                        <a class="nav-link" href="../CreateProduct/CreateProduct">Create Product</a>
+                        <a class="nav-link" href="../Product/CreateProduct">Create Product</a>
                     </li>
                     <li class="nav-item">
                         

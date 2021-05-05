@@ -3,7 +3,7 @@ using System.Web;
 
 namespace OnlinePrintingService.Helper
 {
-    public class Cookie
+    public class Cookiez
     {
       
 
@@ -21,7 +21,8 @@ namespace OnlinePrintingService.Helper
 
         public static CookieData GetCookieData(HttpRequestBase request)
         {
-            var userId = request.Cookies["userData"].Value.Substring(request.Cookies["userData"].Value.IndexOf('=') + 1, request.Cookies["userData"].Value.IndexOf('&') - 1);
+            var x = (request.Cookies["userData"].Value.Substring(request.Cookies["userData"].Value.IndexOf("=") + 1, request.Cookies["userData"].Value.IndexOf("&role")));
+            var userId = x.Substring(0, x.IndexOf("&"));
             var role = request.Cookies["userData"].Value.Substring(request.Cookies["userData"].Value.IndexOf("role=") + 5);
 
             return new CookieData(userId, role);

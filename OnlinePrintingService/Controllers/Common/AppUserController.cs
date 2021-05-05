@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using OnlinePrintingService.Identity;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
@@ -8,52 +7,68 @@ using OnlinePrintingService.ViewModel;
 using System.Diagnostics;
 using System.Linq;
 using OnlinePrintingService.Helper;
+using OnlinePrintingService.Models;
+ using System.Net.Http;
+using System;
+using System.Collections.Generic;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace OnlinePrintingService.Controllers
 {
     public class AppUserController : Controller
     {
+        public class UserAuth
+        {
+            public string access_token { get; set; }
+            public string token_type { get; set; }
+
+            public string expires_in { get; set; }
+
+            public string userName { get; set; }
+
+            public string issued { get; set; }
+            public string expires { get; set; }
+
+        }
+        
         // GET: AppUser
         public ActionResult SignUp()
         {
             return View();
         }
 
+
         [HttpPost]
         public ActionResult SignUp(SignUpViewModel signUpViewModel)
         {
             if (ModelState.IsValid)
             {
-                using (var appDbContext = new AppDbContext())
-                using (var userStore = new AppUserStore(appDbContext))
-                using (var userManager = new AppUserManager(userStore))
+
                 {
                     var passwordHash = Crypto.HashPassword(signUpViewModel.Password);
                     var user = new AppUser()
 
                     {
-                    UserName = signUpViewModel.UserName,
-                    Email = signUpViewModel.Email,
-                    PasswordHash = passwordHash,
-                    PhoneNumber = signUpViewModel.PhoneNumber
+                        Email = signUpViewModel.Email,
+                        FirstName = signUpViewModel.FirstName,
+                        LastName = signUpViewModel.LastName,
+                        PhoneNumber = signUpViewModel.PhoneNumber,
+                        Password = signUpViewModel.Password,
+                        ConfirmPassword = signUpViewModel.ConfirmPassword
+
                     };
-                    IdentityResult result = userManager.Create(user);
-                    if (result.Succeeded)
-                    {
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri("https://localhost:44398/api/Account/Register");
 
+                    var intr = client.PostAsJsonAsync<AppUser>("Register", user);
+                    intr.Wait();
+                    var response = intr.Result;
+                  
+                    Debug.Print(response.ReasonPhrase);
 
-                        userManager.AddToRole(user.Id, "User");
-
-                        var authenticationManager = HttpContext.GetOwinContext().Authentication;
-                        var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-                        authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
-                        Cookie.AddCookie(user.UserName, "Admin", Response);
-
-                    }
-                    else
-                    {
-                        Debug.Print(string.Join("\n", result.Errors.ToArray()));
-                    }
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -61,9 +76,10 @@ namespace OnlinePrintingService.Controllers
             else
             {
                 ModelState.AddModelError("SignUp Error", "Invalid data");
-                return View();       
+                return View();
             }
         }
+
 
         public ActionResult Login()
         {
@@ -71,49 +87,41 @@ namespace OnlinePrintingService.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel loginViewModel)
+        public async Task<ActionResult> Login(LoginViewModel loginViewModel)
         {
-            
-            using (var appDbContext = new AppDbContext())
-            using (var userStore = new AppUserStore(appDbContext))
-            using (var userManager = new AppUserManager(userStore))
+            var nvc = new List<KeyValuePair<string, string>>();
+            nvc.Add(new KeyValuePair<string, string>("grant_type", "password"));
+            nvc.Add(new KeyValuePair<string, string>("username", loginViewModel.UserName));
+            nvc.Add(new KeyValuePair<string, string>("password", loginViewModel.Password));
+            var client = new HttpClient();
+            var req = new HttpRequestMessage(HttpMethod.Post, "https://localhost:44398/api/token") { Content = new FormUrlEncodedContent(nvc) };
+            var res = await client.SendAsync(req);
+            if (res.StatusCode == HttpStatusCode.OK)
             {
-                var user = userManager.Find(loginViewModel.UserName, loginViewModel.Password);
-                if (user != null)
-                {
-                    var authenticationManager = HttpContext.GetOwinContext().Authentication;
-                    var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-                    authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
-                    if (userManager.IsInRole(user.Id, "Admin"))
-                    {
-                        Cookie.AddCookie(user.Id, "Admin", Response);
-                        return RedirectToAction("Order", "AdminOrder", new { area = "Admin" });
+                
+                string responseBody = await res.Content.ReadAsStringAsync();
+                UserAuth usr = JsonConvert.DeserializeObject<UserAuth>(responseBody);
 
-                    }
-                    else
-                    {
-                        Cookie.AddCookie(user.Id, "User", Response);
-                        return RedirectToAction("Index", "Home");
-                    }
+               
+                if (usr.userName == "admin") {
+                    Cookiez.AddCookie(usr.userName, "Admin", Response);
+                    return RedirectToAction("Order", "AdminOrder");
                 }
-                else
-                {
-                    ModelState.AddModelError("Authentication Error", "Invalid username and/or password");
-                    return View();
-                }
+                Cookiez.AddCookie(usr.userName, "User", Response);
+                return RedirectToAction("Index", "Home");
             }
-
-
+            ModelState.AddModelError("SignUp Error", "Invalid data");
+            return View();
         }
 
+       
         public ActionResult Logout()
         {
-            var authenticationManager = HttpContext.GetOwinContext().Authentication;
-            authenticationManager.SignOut();
-            Cookie.RemoveCookie(HttpContext.ApplicationInstance.Response);
+            
+            Cookiez.RemoveCookie(HttpContext.ApplicationInstance.Response);
             return RedirectToAction("Index", "Home");
         }
 
-     
+        
     }
 }

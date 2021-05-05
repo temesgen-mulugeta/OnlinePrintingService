@@ -8,7 +8,6 @@ namespace OnlinePrintingService.Models
 {
     public class Order
     {
-        [Key]
         public long OrderID { get; set; }
         public long ProductID { get; set; }
         public long OrderQuantity { get; set; }

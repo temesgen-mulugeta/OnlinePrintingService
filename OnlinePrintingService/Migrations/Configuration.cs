@@ -1,4 +1,4 @@
-namespace OnlinePrintingService.Migrations
+/*namespace OnlinePrintingService.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -29,3 +29,5 @@ namespace OnlinePrintingService.Migrations
         }
     }
 }
+
+*/

@@ -9,8 +9,12 @@ namespace OnlinePrintingService.ViewModel
 {
     public class SignUpViewModel
     {
-        [Required(ErrorMessage = "User Name can't be blank")]
-        public string UserName { get; set; }
+        [Required(ErrorMessage = "First Name can't be blank")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Last Name can't be blank")]
+        public string LastName { get; set; }
+
 
         [Required(ErrorMessage = "Email can't be blank")]
         [EmailAddress(ErrorMessage = "Invalid email")]
@@ -25,8 +29,6 @@ namespace OnlinePrintingService.ViewModel
         [Required(ErrorMessage = "Confirm Password can't be blank")]
         [Compare("Password", ErrorMessage = "Password and confirm password do not match")]
         public string ConfirmPassword { get; set; }
-
-
 
     }
 }

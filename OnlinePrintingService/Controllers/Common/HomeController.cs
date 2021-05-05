@@ -1,4 +1,5 @@
 ﻿using OnlinePrintingService.Models;
+using OnlinePrintingService.REST;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,11 +14,12 @@ namespace OnlinePrintingService.Controllers
         }
         public ActionResult Pricing()
         {
-            using (var context = new dbOPScontext())
+            var products = ProductREST.GetAllProducts();
+            if (products.Count() == 0)
             {
-                List<Product> products = context.Product.ToList();
-                return View(products);
+                ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
             }
+            return View(products.ToList());
         }
     }
 }

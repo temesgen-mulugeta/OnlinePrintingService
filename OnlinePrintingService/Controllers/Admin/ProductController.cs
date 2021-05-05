@@ -1,7 +1,8 @@
 ﻿
 using OnlinePrintingService.Models;
+using OnlinePrintingService.REST;
 using OnlinePrintingService.ViewModel;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -9,31 +10,49 @@ namespace OnlinePrintingService.Controllers
 {
     public class ProductController : Controller
     {
+
+        [HttpGet]
         public ActionResult Products()
         {
-            using (var context = new dbOPScontext())
+            var products = ProductREST.GetAllProducts();
+            if (products.Count() == 0)
             {
-                List<Product> products = context.Product.ToList();
-                return View(products);
+                ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
             }
+            return View(products);
+
+        }
+
+        public ActionResult CreateProduct() => View();
+        
+        [HttpPost]
+        public ActionResult CreateProduct(ProductViewModel productViewModel)
+        {
+
+            var product = new Product
+            {
+                ProductName = productViewModel.ProductName,
+                Price = productViewModel.Price
+            };
+
+            var result = ProductREST.Post(product);
+
+
+            if (result.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Products", "Product");
+            }
+            Debug.Print(result.ReasonPhrase);
+            ModelState.AddModelError(string.Empty, "Sorry, something went wrong.");
+
+            return View();
         }
 
 
-       // [HttpPost]
-        public ActionResult removeProduct(long ProductID)
+        public ActionResult DeleteProduct(long ProductID)
         {
-            using (var context = new dbOPScontext())
-            {
-                var product = new Product
-                {
-                    ProductID = ProductID,    
-                };
-
-                context.Product.Attach(product);
-                context.Product.Remove(product);
-                context.SaveChanges();
-                return RedirectToAction("Products", "Product");
-            }
+            ProductREST.Delete(ProductID);
+            return RedirectToAction("Products", "Product");
         }
     }
    

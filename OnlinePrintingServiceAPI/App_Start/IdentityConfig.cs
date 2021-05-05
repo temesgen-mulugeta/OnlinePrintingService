@@ -3,9 +3,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using IdentityAPI.Models;
+using OnlinePrintingServiceApi.Models;
 
-namespace IdentityAPI
+namespace OnlinePrintingServiceApi
 {
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
 
@@ -15,8 +15,6 @@ namespace IdentityAPI
             : base(store)
         {
         }
-
-        public bool Succeeded { get; internal set; }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {

@@ -15,13 +15,117 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using OnlinePrintingService.Models;
+using OnlinePrintingService.ApiInfrastructure;
 
 namespace OnlinePrintingService.Controllers
 {
- 
+    public abstract class BaseController : Controller
+    {
+        protected void AddResponseErrorsToModelState(ApiResponse response)
+        {
+            var errors = response.ErrorState.ModelState;
+            if (errors == null)
+            {
+                return;
+            }
+
+            foreach (var error in errors)
+            {
+                foreach (var entry in
+                    from entry in ModelState
+                    let matchSuffix = string.Concat(".", entry.Key)
+                    where error.Key.EndsWith(matchSuffix)
+                    select entry)
+                {
+                    ModelState.AddModelError(entry.Key, error.Value[0]);
+                }
+            }
+        }
+    }
+    public class UserData
+    {
+        public string access_token { get; set; }
+        public string token_type { get; set; }
+        public string expires_in { get; set; }
+        public string userName { get; set; }
+                public string issued { get; set; }
+        public string expires { get; set; }
+       
+    }
+    public class AccountController : BaseController
+    {
+        private readonly ILoginClient loginClient;
+        private readonly ITokenContainer tokenContainer;
+
+        /// <summary>
+        /// Default parameterless constructor. 
+        /// Delete this if you are using a DI container.
+        /// </summary>
+        public AccountController()
+        {
+            tokenContainer = new TokenContainer();
+            var apiClient = new ApiClient(new HttpClient());
+            loginClient = new LoginClient(apiClient);
+        }
+
+        /// <summary>
+        /// Default constructor with dependency.
+        /// Delete this if you aren't planning on using a DI container.
+        /// </summary>
+        /// <param name="loginClient">The login client.</param>
+        /// <param name="tokenContainer">The token container.</param>
+        public AccountController(ILoginClient loginClient, ITokenContainer tokenContainer)
+        {
+            this.loginClient = loginClient;
+            this.tokenContainer = tokenContainer;
+        }
+
+        public ActionResult Login()
+        {
+            var model = new LoginViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel model)
+        {
+            var loginSuccess = await PerformLoginActions(model.UserName, model.Password);
+            if (loginSuccess)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ModelState.Clear();
+            ModelState.AddModelError("", "The username or password is incorrect");
+            return View(model);
+        }
+
+        // Register methods go here, removed for brevity
+
+        private async Task<bool> PerformLoginActions(string email, string password)
+        {
+            var response = await loginClient.Login(email, password);
+            if (response.StatusIsSuccessful)
+            {
+                tokenContainer.ApiToken = response.Data;
+            }
+            else
+            {
+                AddResponseErrorsToModelState(response);
+            }
+
+            return response.StatusIsSuccessful;
+        }
+    }
     public class AppUserController : Controller
     {
-        public class User
+       
+
+
+        public class Userx
         {
           
             public string Email { get; set; }
@@ -52,7 +156,7 @@ namespace OnlinePrintingService.Controllers
 
                 {
                     var passwordHash = Crypto.HashPassword(signUpViewModel.Password);
-                    var user = new User()
+                    var user = new Userx()
 
                     {
                         Email = signUpViewModel.Email,
@@ -66,11 +170,11 @@ namespace OnlinePrintingService.Controllers
                     HttpClient client = new HttpClient();
                     client.BaseAddress = new Uri("https://localhost:44358/api/Account/Register");
 
-                    var intr = client.PostAsJsonAsync<User>("Register", user);
-                    intr.Wait();
-                    var response = intr.Result;
+                   // var intr = client.PostAsJsonAsync<User>("Register", user);
+                    //intr.Wait();
+                    //var response = intr.Result;
                     
-                    Debug.Print(response.ReasonPhrase);
+                   // Debug.Print(response.ReasonPhrase);
 
 
                     return RedirectToAction("Index", "Home");
@@ -84,6 +188,10 @@ namespace OnlinePrintingService.Controllers
         }
 
 
+        public ActionResult SignIn()
+        {
+            return View();
+        }
 
         public ActionResult Login() {
             return View();
@@ -93,22 +201,54 @@ namespace OnlinePrintingService.Controllers
         public ActionResult Login(LoginViewModel loginViewModel)
         {
 
-            var paramt = new List<KeyValuePair<string, string>>();
-            var url = "https://localhost:44358/token";
-            paramt.Add(new KeyValuePair<string, string>("grant_type", "password"));
-            paramt.Add(new KeyValuePair<string, string>("username", loginViewModel.UserName));
-            paramt.Add(new KeyValuePair<string, string>("password", loginViewModel.Password));
-            using (HttpClient client = new HttpClient())
+            //var x= new LoginViewModel(loginViewModel.UserName, loginViewModel.Password);
+
+         
+
+            if (UserInformation.response != null)
             {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var x = new FormUrlEncodedContent(paramt);
-                HttpResponseMessage response = client.PostAsync(url,x ).Result;
-                var tokne = response.Content.ReadAsStringAsync().Result;
+                var pp = UserInformation.response.Content;
+                if (UserInformation.message == "ok")
+                {
+
+
+                    return RedirectToAction("Index", "Home");
+                }
             }
+
+            if (UserInformation.message != null)
+            {
+                var pp = UserInformation.response.Content;
+                if (UserInformation.message == "ok")
+                {
+
+
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
             return View();
+
+          
+        }
+        public async Task check(string UserName, string Password)
+        {
+            string user = UserName;
+            string pass = Password;
+            var nvc = new List<KeyValuePair<string, string>>();
+            nvc.Add(new KeyValuePair<string, string>("grant_type", "password"));
+            nvc.Add(new KeyValuePair<string, string>("username", user));
+            nvc.Add(new KeyValuePair<string, string>("password", pass));
+            var client = new HttpClient();
+            var req = new HttpRequestMessage(HttpMethod.Post, "https://localhost:44358/token") { Content = new FormUrlEncodedContent(nvc) };
+            var res = await client.SendAsync(req);
+            UserInformation.response = res;
+            UserInformation.message = res.ReasonPhrase;
+
         }
 
-            public ActionResult Logout()
+
+        public ActionResult Logout()
         {
             var authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();

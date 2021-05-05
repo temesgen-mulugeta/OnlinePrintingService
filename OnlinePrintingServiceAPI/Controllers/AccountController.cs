@@ -13,26 +13,18 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using IdentityAPI.Models;
-using IdentityAPI.Providers;
-using IdentityAPI.Results;
+using OnlinePrintingServiceApi.Models;
+using OnlinePrintingServiceApi.Providers;
 
-namespace IdentityAPI.Controllers
+
+namespace OnlinePrintingServiceApi.Controllers
 {
-    [Authorize]
-    [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+
+    public class Account : ApiController
     {
+        private ApplicationUserManager UserManager => Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-        private ApplicationUserManager UserManager
-        {
-            get
-            {
-                return Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-        }
-
-        public IHttpActionResult Post(RegisterApiModel model)
+        public IHttpActionResult Post(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -41,12 +33,12 @@ namespace IdentityAPI.Controllers
 
             var user = new ApplicationUser
             {
-                Email = "",
-                UserName = "",
+                Email = model.Email,
+                UserName = model.Email,
                 EmailConfirmed = true
             };
 
-            var result = UserManager.Create(user, "");
+            var result = UserManager.Create(user, model.Password);
             return result.Succeeded ? Ok() : GetErrorResult(result);
         }
 
@@ -73,7 +65,5 @@ namespace IdentityAPI.Controllers
 
             return BadRequest(ModelState);
         }
-
-
     }
 }

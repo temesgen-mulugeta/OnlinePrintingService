@@ -12,6 +12,7 @@ using System.Net.Http;
 using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace OnlinePrintingService.Controllers
 {
@@ -132,21 +133,16 @@ namespace OnlinePrintingService.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel loginViewModel)
+        public async Task<ActionResult> Login(LoginViewModel loginViewModel)
         {
+            var nvc = new List<KeyValuePair<string, string>>();
+            nvc.Add(new KeyValuePair<string, string>("grant_type", "password"));
+            nvc.Add(new KeyValuePair<string, string>("username", loginViewModel.UserName));
+            nvc.Add(new KeyValuePair<string, string>("password", loginViewModel.Password));
+            var client = new HttpClient();
+            var req = new HttpRequestMessage(HttpMethod.Post, "https://localhost:44398/api/token") { Content = new FormUrlEncodedContent(nvc) };
+            var res = await client.SendAsync(req);
 
-            var paramt = new List<KeyValuePair<string, string>>();
-            var url = "https://localhost:44358/token";
-            paramt.Add(new KeyValuePair<string, string>("grant_type", "password"));
-            paramt.Add(new KeyValuePair<string, string>("username", loginViewModel.UserName));
-            paramt.Add(new KeyValuePair<string, string>("password", loginViewModel.Password));
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var x = new FormUrlEncodedContent(paramt);
-                HttpResponseMessage response = client.PostAsync(url, x).Result;
-                var tokne = response.Content.ReadAsStringAsync().Result;
-            }
             return View();
         }
         public ActionResult Logout()

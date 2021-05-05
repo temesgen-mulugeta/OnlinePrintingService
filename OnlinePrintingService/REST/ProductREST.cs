@@ -70,7 +70,7 @@ namespace OnlinePrintingService.REST
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44398/api/");
+                client.BaseAddress = new Uri("https://localhost:44398/api/Products");
                 var postTask = client.PostAsJsonAsync<Product>("Products", product);
                 postTask.Wait();
                 return postTask.Result;

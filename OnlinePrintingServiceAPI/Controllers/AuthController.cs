@@ -22,8 +22,8 @@ namespace OnlinePrintingServiceAPI.Controllers
                 return Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
-
-        public IHttpActionResult Post(RegisterBindingModel model)
+        // POST: api/Register
+        public IHttpActionResult PostRegister(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
             {

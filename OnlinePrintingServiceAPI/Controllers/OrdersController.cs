@@ -3,8 +3,10 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using OnlinePrintingServiceApi.Identity;
 using OnlinePrintingServiceAPI.Models;
 
 namespace OnlinePrintingServiceApi.Controllers
@@ -30,7 +32,7 @@ namespace OnlinePrintingServiceApi.Controllers
 
             return Ok(order);
         }
-
+      
         // PUT: api/Orders/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutOrder(long id, Order order)

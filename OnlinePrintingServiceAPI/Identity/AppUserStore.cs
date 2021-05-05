@@ -3,7 +3,7 @@
 
 namespace OnlinePrintingServiceApi.Identity
 {
-    public class AppUserStore : UserStore<AppUser>
+    public class AppUserStore : UserStore<ApplicationUser>
     {
         public AppUserStore(AuthDbContext dbContext) : base(dbContext)
         {

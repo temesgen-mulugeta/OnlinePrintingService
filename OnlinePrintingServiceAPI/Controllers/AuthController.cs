@@ -1,118 +1,71 @@
 ﻿using System;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OnlinePrintingServiceApi.Identity;
+using OnlinePrintingServiceAPI.Models;
 
 namespace OnlinePrintingServiceAPI.Controllers
 {
     public class AuthController : ApiController
     {
-        private static AuthDbContext db = new AuthDbContext();
-        private static AppUserStore userStore = new AppUserStore(db);
-        private static AppUserManager userManager = new AppUserManager(userStore);
 
+        private ApplicationUserManager UserManager
+        {
+            get
+            {
+                return Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
 
-        // POST: api/Auth
-
-        [ResponseType(typeof(void))]
-        public IHttpActionResult Register(AppUser appUser)
+        public IHttpActionResult Post(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
             {
-
                 return BadRequest(ModelState);
             }
 
-            if (userManager.FindByEmail(appUser.Email) == null)
+            var user = new ApplicationUser
             {
+                FirstName=model.FirstName,
+                LastName=model.LastName,
+                PhoneNumber=model.PhoneNumber,
+                Email = model.Email,
+                UserName = model.Email,
+                EmailConfirmed = true
+            };
 
-                IdentityResult result = userManager.Create(appUser);
-
-                if (result.Succeeded)
-                {
-                    userManager.AddToRole(appUser.Id, "User");
-                    var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
-                    var userIdentity = userManager.CreateIdentity(appUser, DefaultAuthenticationTypes.ApplicationCookie);
-                    authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
-
-                    // ADD COOKIE HERE
-
-                    return Ok();
-
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = appUser.Id }, appUser);
-
+            var result = UserManager.Create(user, model.Password);
+            return result.Succeeded ? Ok() : GetErrorResult(result);
         }
 
-        // GET: api/Auth/username&password
-
-        [ResponseType(typeof(AppUser))]
-        public IHttpActionResult Login(string credentials)
+        private IHttpActionResult GetErrorResult(IdentityResult result)
         {
-
-            if (!ModelState.IsValid)
+            if (result == null)
             {
-
-                return BadRequest(ModelState);
+                return InternalServerError();
             }
 
-            var encoding = Encoding.GetEncoding("iso-8859-1");
-            credentials = encoding.GetString(Convert.FromBase64String(credentials));
-            int separator = credentials.IndexOf('&');
-            string name = credentials.Substring(0, separator);
-            string password = credentials.Substring(separator + 1);
-
-
-            var user = userManager.Find(name, password);
-            if (user != null)
+            if (result.Errors != null)
             {
-                var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
-                var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-                authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
-
-                if (userIdentity.IsAuthenticated)
+                foreach (var error in result.Errors)
                 {
-                    return Ok(user);
-                }
-
-                if (userManager.IsInRole(user.Id, "Admin")) 
-                {
-
-                    // ADD COOKIE HERE
-
-                }
-                else
-                {
-                    // ADD COOKIE HERE
-
+                    ModelState.AddModelError("", error);
                 }
             }
-            else
+
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("Authentication Error", "Invalid username and/or password");
+                // No ModelState errors are available to send, so just return an empty BadRequest.
+                return BadRequest();
             }
 
-            return BadRequest();
-
-        }
-
-
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-                userStore.Dispose();
-                userManager.Dispose();
-            }
-            base.Dispose(disposing);
+            return BadRequest(ModelState);
         }
 
     }

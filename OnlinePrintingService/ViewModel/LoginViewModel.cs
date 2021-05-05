@@ -13,5 +13,8 @@ namespace OnlinePrintingService.ViewModel
 
         [Required(ErrorMessage = "Password can't be blank")]
         public string Password { get; set; }
+
+
+          
     }
 }

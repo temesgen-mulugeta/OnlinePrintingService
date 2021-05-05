@@ -5,6 +5,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using OnlinePrintingServiceApi.Identity;
+using System.Web.Http;
+using Microsoft.Owin.Security.OAuth;
+using System;
+using OnlinePrintingServiceAPI;
 
 [assembly: OwinStartup(typeof(OnlinePrintingService.Startup))]
 namespace OnlinePrintingService
@@ -14,45 +18,74 @@ namespace OnlinePrintingService
         public void Configuration(IAppBuilder app)
         {
             app.UseCookieAuthentication(new CookieAuthenticationOptions() { AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie, LoginPath = new PathString("/User/Login") });
-            CreateRolesAndUsers();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+
+            var PublicClientId = "self";
+           
+            var oAuthOptions = new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/api/token"),
+                Provider = new ApplicationOAuthProvider(PublicClientId),
+                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AllowInsecureHttp = true
+            };
+            // Enable the application to use bearer tokens to authenticate users
+            app.UseOAuthBearerTokens(oAuthOptions);
+            createRolesandUsers();
         }
 
-        public void CreateRolesAndUsers()
+        // In this method we will create default User roles and Admin user for login
+        private void createRolesandUsers()
         {
-            using (var appDbContext = new AuthDbContext())
-            using (var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(appDbContext)))
-            using (var appUserStore = new AppUserStore(appDbContext))
-            using (var userManager = new AppUserManager(appUserStore))
+            ApplicationDbContext context = new ApplicationDbContext();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+
+            // In Startup iam creating first Admin Role and creating a default Admin User     
+            if (!roleManager.RoleExists("Admin"))
             {
 
-                if (!roleManager.RoleExists("Admin"))
-                {
-                    var role = new IdentityRole();
-                    role.Name = "Admin";
-                    roleManager.Create(role);
-                }
+                // first we create Admin rool    
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Admin";
+                roleManager.Create(role);
+            }
+            if (UserManager.FindByEmail("admin@gmail.com") == null)
+            {
+                //Here we create a Admin super user who will maintain the website                   
 
-                if (userManager.FindByName("admin") == null)
-                {
-                    var user = new AppUser();
-                    user.UserName = "admin";
-                    user.Email = "admin@gmail.com";
-                    string userPassword = "admin123";
-                    var chkUser = userManager.Create(user, userPassword);
-                    if (chkUser.Succeeded)
-                    {
-                        userManager.AddToRole(user.Id, "Admin");
+                var user = new ApplicationUser();
+                user.FirstName = "Adey";
+                user.LastName = "Printing";
+                user.UserName = "admin";
+                user.Email = "admin@gmail.com";
 
-                    }
-                }
+                string userPWD = "admin123";
 
-                if (!roleManager.RoleExists("User"))
+                var chkUser = UserManager.Create(user, userPWD);
+
+                //Add default User to Role Admin    
+                if (chkUser.Succeeded)
                 {
-                    var role = new IdentityRole();
-                    role.Name = "User";
-                    roleManager.Create(role);
+                    var result1 = UserManager.AddToRole(user.Id, "Admin");
+
                 }
             }
+
+            // creating Creating User role     
+            if (!roleManager.RoleExists("User"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "User";
+                roleManager.Create(role);
+
+            }
+
         }
     }
 }

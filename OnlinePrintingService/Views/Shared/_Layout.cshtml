@@ -30,7 +30,7 @@
 </head>
 <body>
     @{ 
-        ViewBag.isLoggedin = OnlinePrintingService.Helper.Cookie.isUserLoggedIn(Request);
+        ViewBag.isLoggedin = OnlinePrintingService.Helper.Cookiez.isUserLoggedIn(Request);
         
         ViewBag.buttonText = ViewBag.isLoggedin ? "Logout" : "Login";
 

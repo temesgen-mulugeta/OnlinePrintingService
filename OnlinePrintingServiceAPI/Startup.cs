@@ -18,7 +18,7 @@ namespace OnlinePrintingService
         public void Configuration(IAppBuilder app)
         {
             app.UseCookieAuthentication(new CookieAuthenticationOptions() { AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie, LoginPath = new PathString("/User/Login") });
-            GlobalConfiguration.Configure(WebApiConfig.Register);
+            
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
@@ -62,7 +62,7 @@ namespace OnlinePrintingService
                 var user = new ApplicationUser();
                 user.FirstName = "Adey";
                 user.LastName = "Printing";
-                user.UserName = "admin";
+                user.UserName = "admin@gmail.com";
                 user.Email = "admin@gmail.com";
 
                 string userPWD = "admin123";

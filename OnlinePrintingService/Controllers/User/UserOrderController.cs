@@ -12,7 +12,10 @@ namespace OnlinePrintingService.Controllers.User
     {
         public ActionResult createOrder()
         {
-
+            if (!OnlinePrintingService.Helper.Cookiez.isUserLoggedIn(Request))
+            {
+                return RedirectToAction("Login", "AppUser");
+            }
             var model = new OrdersViewModel();
             var productList = ProductREST.GetAllProducts();
 

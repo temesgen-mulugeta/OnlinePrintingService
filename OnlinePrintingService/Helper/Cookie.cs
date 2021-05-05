@@ -3,7 +3,7 @@ using System.Web;
 
 namespace OnlinePrintingService.Helper
 {
-    public class Cookie
+    public class Cookiez
     {
       
 

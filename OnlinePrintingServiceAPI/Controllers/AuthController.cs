@@ -12,6 +12,7 @@ using OnlinePrintingServiceAPI.Models;
 
 namespace OnlinePrintingServiceAPI.Controllers
 {
+    [RoutePrefix("api/Account")]
     public class AuthController : ApiController
     {
 
@@ -22,6 +23,9 @@ namespace OnlinePrintingServiceAPI.Controllers
                 return Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
+
+        [Route("Register")]
+
         // POST: api/Register
         public IHttpActionResult PostRegister(RegisterBindingModel model)
         {

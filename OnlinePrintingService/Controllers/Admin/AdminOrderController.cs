@@ -28,8 +28,9 @@ namespace OnlinePrintingService.Controllers
            var OrderResultList = (
                                     from order in orderList
                                     join product in productList on order.ProductID equals product.ProductID
-                                    join user in userList on order.UserID equals user.UserId
-                                    where order.ProductID == product.ProductID && order.UserID == user.Email
+                                    join user in userList on order.UserID equals user.Email
+                                    where order.ProductID == product.ProductID 
+                                    where order.UserID == user.Email
                                                     select new OrderResult
                                                     {
                                                         orderId = order.OrderID,

@@ -7,8 +7,8 @@ using OnlinePrintingService.ViewModel;
 using System.Diagnostics;
 using System.Linq;
 using OnlinePrintingService.Helper;
-using OnlinePrintingService.Identity;
-using System.Net.Http;
+using OnlinePrintingService.Models;
+ using System.Net.Http;
 using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
@@ -33,21 +33,7 @@ namespace OnlinePrintingService.Controllers
             public string expires { get; set; }
 
         }
-        public class User
-        {
-
-            public string Email { get; set; }
-
-            public string FirstName { get; set; }
-
-            public string LastName { get; set; }
-
-            public string PhoneNumber { get; set; }
-
-            public string Password { get; set; }
-
-            public string ConfirmPassword { get; set; }
-        }
+        
         // GET: AppUser
         public ActionResult SignUp()
         {
@@ -55,7 +41,6 @@ namespace OnlinePrintingService.Controllers
         }
 
 
-        /*
         [HttpPost]
         public ActionResult SignUp(SignUpViewModel signUpViewModel)
         {
@@ -65,52 +50,6 @@ namespace OnlinePrintingService.Controllers
                 {
                     var passwordHash = Crypto.HashPassword(signUpViewModel.Password);
                     var user = new AppUser()
-
-                    {
-                        UserName = signUpViewModel.UserName,
-                        Email = signUpViewModel.Email,
-                        PasswordHash = passwordHash,
-                        PhoneNumber = signUpViewModel.PhoneNumber
-                    };
-
-                    using (var client = new HttpClient())
-                    {
-                        client.BaseAddress = new Uri("https://localhost:44398/api/");
-                        var postTask = client.PostAsJsonAsync<AppUser>("Auth", user);
-                        postTask.Wait();
-                        var result = postTask.Result;
-
-                        if (result.IsSuccessStatusCode)
-                        {
-
-                            // Cookie.AddCookie(user.UserName, "Admin", Response);
-
-                        }
-                        else
-                        {
-                            Debug.Print(result.ReasonPhrase);
-                        }
-                    }
-
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("SignUp Error", "Invalid data");
-                return View();
-            }
-        }
-        */
-        [HttpPost]
-        public ActionResult SignUp(SignUpViewModel signUpViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-
-                {
-                    var passwordHash = Crypto.HashPassword(signUpViewModel.Password);
-                    var user = new User()
 
                     {
                         Email = signUpViewModel.Email,
@@ -124,7 +63,7 @@ namespace OnlinePrintingService.Controllers
                     HttpClient client = new HttpClient();
                     client.BaseAddress = new Uri("https://localhost:44398/api/Account/Register");
 
-                    var intr = client.PostAsJsonAsync<User>("Register", user);
+                    var intr = client.PostAsJsonAsync<AppUser>("Register", user);
                     intr.Wait();
                     var response = intr.Result;
                   
@@ -163,8 +102,12 @@ namespace OnlinePrintingService.Controllers
                 string responseBody = await res.Content.ReadAsStringAsync();
                 UserAuth usr = JsonConvert.DeserializeObject<UserAuth>(responseBody);
 
+               
+                if (usr.userName == "admin") {
+                    Cookiez.AddCookie(usr.userName, "Admin", Response);
+                    return RedirectToAction("Order", "AdminOrder");
+                }
                 Cookiez.AddCookie(usr.userName, "User", Response);
-                if(usr.userName== "admin") return RedirectToAction("Order", "AdminOrder");
                 return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError("SignUp Error", "Invalid data");

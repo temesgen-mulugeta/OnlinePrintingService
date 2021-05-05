@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Web;
@@ -8,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OnlinePrintingServiceApi.Identity;
+
 using OnlinePrintingServiceAPI.Models;
 
 namespace OnlinePrintingServiceAPI.Controllers
@@ -72,5 +75,33 @@ namespace OnlinePrintingServiceAPI.Controllers
             return BadRequest(ModelState);
         }
 
+
+        // GET: api/Account/All
+
+        [Route("All")]
+
+
+        [ResponseType(typeof(IList<UserModel>))]
+        public IHttpActionResult GetUsers() {
+
+
+
+            var userList = UserManager.Users.ToList();
+            userList.ForEach(x =>  new UserModel
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                PhoneNumber=x.PhoneNumber,
+                Email=x.Email,
+                UserId=x.Id
+               
+            });
+            
+
+            return Ok(userList);
+           
+        }
+
+        
     }
 }

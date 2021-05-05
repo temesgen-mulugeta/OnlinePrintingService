@@ -49,7 +49,7 @@ namespace OnlinePrintingService.Controllers.User
                 ProductID = long.Parse(orderViewModel.selectedProductName),
                 OrderQuantity = orderViewModel.Quantity,
                 OrderImage = img,
-                UserID = "silv"
+                UserID = OnlinePrintingService.Helper.Cookiez.GetCookieData(Request).userId
             };
 
             var result = OrderREST.Post(order);

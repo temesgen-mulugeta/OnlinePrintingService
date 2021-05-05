@@ -194,6 +194,7 @@
     <Compile Include="Controllers\Admin\AdminOrderController.cs" />
     <Compile Include="Controllers\Admin\ProductController.cs" />
     <Compile Include="Controllers\User\UserOrderController.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
@@ -208,6 +209,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="REST\UserREST.cs" />
     <Compile Include="REST\OrderREST.cs" />
     <Compile Include="REST\ProductREST.cs" />
     <Compile Include="Startup.cs" />

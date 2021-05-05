@@ -2,7 +2,7 @@
 
 namespace OnlinePrintingService.Models
 {
-    public class AppUser
+    public class UserModel
     {
 
         public string Email { get; set; }
@@ -13,8 +13,6 @@ namespace OnlinePrintingService.Models
 
         public string PhoneNumber { get; set; }
 
-        public string Password { get; set; }
-
-        public string ConfirmPassword { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -51,7 +51,7 @@
             <td>@od.productName</td>
 
             <td>@od.quantity</td>
-            <td><a href="#">download image</a></td>
+            <td> <a href="<%=String.Format(" data:image /gif;base64,{0} ", Convert.ToBase64String(@od.image))%>" download</td>
             <td>
                 <input type="button"
                        value="Delete"

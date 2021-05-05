@@ -11,6 +11,8 @@ namespace OnlinePrintingService.Controllers
         {
             public long orderId { set; get; }
             public string customerName { set; get; }
+
+            public string phoneNumber { set; get; }
             public string productName { set; get; }
             public long quantity { set; get; }
             public byte[] image { set; get; }
@@ -21,17 +23,21 @@ namespace OnlinePrintingService.Controllers
         {
             var orderList = OrderREST.GetAllOrders();
             var productList = ProductREST.GetAllProducts();
+            var userList = UserREST.GetAllUsers();
 
-           var OrderResultList = (from order in orderList
-                                                    join product in productList on order.ProductID equals product.ProductID
-                                                    where order.ProductID == product.ProductID
-                                                    where order.ProductID == product.ProductID
+           var OrderResultList = (
+                                    from order in orderList
+                                    join product in productList on order.ProductID equals product.ProductID
+                                    join user in userList on order.UserID equals user.UserId
+                                    where order.ProductID == product.ProductID && order.UserID == user.Email
                                                     select new OrderResult
                                                     {
                                                         orderId = order.OrderID,
                                                         quantity = order.OrderQuantity,
                                                         image = order.OrderImage,
                                                         productName = product.ProductName,
+                                                        customerName = user.FirstName + user.LastName,
+                                                        phoneNumber=user.PhoneNumber
                                                     }).ToList();
             ViewBag.orders = OrderResultList;
             return View();

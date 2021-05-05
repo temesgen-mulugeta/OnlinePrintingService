@@ -15,6 +15,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OnlinePrintingService.Controllers
 {
@@ -90,32 +91,45 @@ namespace OnlinePrintingService.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel loginViewModel)
+        public async Task< ActionResult> Login(LoginViewModel loginViewModel)
         {
 
             var paramt = new List<KeyValuePair<string, string>>();
-            var url = "https://localhost:44358/token";
+           
             paramt.Add(new KeyValuePair<string, string>("grant_type", "password"));
             paramt.Add(new KeyValuePair<string, string>("username", loginViewModel.UserName));
             paramt.Add(new KeyValuePair<string, string>("password", loginViewModel.Password));
-            using (HttpClient client = new HttpClient())
+            
+            var client = new HttpClient();
+            var req = new HttpRequestMessage(HttpMethod.Post, "https://localhost:44358/token") { Content = new FormUrlEncodedContent(paramt) };
+            var res = await client.SendAsync(req);
+            string responseBody = await res.Content.ReadAsStringAsync();
+
+            Authn userAuth = JsonConvert.DeserializeObject<Authn>(responseBody);
+            if (res.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var x = new FormUrlEncodedContent(paramt);
-                HttpResponseMessage response = client.PostAsync(url,x ).Result;
-                var tokne = response.Content.ReadAsStringAsync().Result;
+                Cookie.AddCookie(userAuth.userName, "User", Response);
+                return RedirectToAction("Index", "Home");
             }
+            ModelState.AddModelError("SignUp Error", "Invalid data");
             return View();
         }
 
             public ActionResult Logout()
         {
-            var authenticationManager = HttpContext.GetOwinContext().Authentication;
-            authenticationManager.SignOut();
+            
             Cookie.RemoveCookie(HttpContext.ApplicationInstance.Response);
             return RedirectToAction("Index", "Home");
         }
 
         
+    }
+
+    public class Authn
+    {
+        public string access_token { set; get; }
+        public string token_type { set; get; }
+        public string expires_in { set; get; }
+        public string userName { set; get; }
     }
 }

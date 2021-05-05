@@ -19,6 +19,7 @@ namespace OnlinePrintingServiceApi.Controllers
         public IHttpActionResult GetOrder() => Ok(db.Order.ToList());
        
         // GET: api/Orders/5
+        [Authorize]
         [ResponseType(typeof(Order))]
         public IHttpActionResult GetOrder(long id)
         {
